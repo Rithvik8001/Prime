@@ -1,7 +1,7 @@
 "use client";
 
 import { Bookmark, ChevronDown, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { roadmapData } from "@/lib/roadmap/data";
 import { getProgress, getCompletionStats } from "@/lib/roadmap/progress";
 import {
@@ -34,8 +34,19 @@ export function RoadmapSidebar({
   onFilterChange,
 }: RoadmapSidebarProps) {
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
-  const progress = getProgress();
-  const stats = getCompletionStats(progress);
+  const [stats, setStats] = useState({
+    total: 0,
+    completed: 0,
+    inProgress: 0,
+    notStarted: 0,
+    percentage: 0,
+  });
+
+  useEffect(() => {
+    const progress = getProgress();
+    const calculatedStats = getCompletionStats(progress);
+    setStats(calculatedStats);
+  }, []);
 
   const toggleTopic = (topicId: string) => {
     const newExpanded = new Set(expandedTopics);
@@ -47,22 +58,27 @@ export function RoadmapSidebar({
     setExpandedTopics(newExpanded);
   };
 
+  const [progress, setProgress] = useState<Record<string, any>>({});
+
+  useEffect(() => {
+    setProgress(getProgress());
+  }, []);
+
   const getSubtopicCount = (topicId: string) => {
     const topic = roadmapData.topics.find((t) => t.id === topicId);
     if (!topic) return 0;
 
-    const allProgress = getProgress();
     switch (filter) {
       case "completed":
         return topic.subtopics.filter(
-          (st) => allProgress[st.id]?.status === "completed"
+          (st) => progress[st.id]?.status === "completed"
         ).length;
       case "in-progress":
         return topic.subtopics.filter(
-          (st) => allProgress[st.id]?.status === "in-progress"
+          (st) => progress[st.id]?.status === "in-progress"
         ).length;
       case "bookmarked":
-        return topic.subtopics.filter((st) => allProgress[st.id]?.bookmarked)
+        return topic.subtopics.filter((st) => progress[st.id]?.bookmarked)
           .length;
       default:
         return topic.subtopics.length;

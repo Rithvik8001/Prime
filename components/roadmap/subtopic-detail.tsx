@@ -1,7 +1,7 @@
 "use client";
 
-import { Bookmark, Clock, ExternalLink, Lock } from "lucide-react";
-import { useState } from "react";
+import { Bookmark, ExternalLink, Lock, FileText, Play, BookOpen } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { Subtopic, SubtopicStatus } from "@/lib/roadmap/types";
+import type { Subtopic, SubtopicStatus, Resource } from "@/lib/roadmap/types";
 import { getSubtopicProgress, getProgress } from "@/lib/roadmap/progress";
 import { roadmapData } from "@/lib/roadmap/data";
 
@@ -31,12 +31,17 @@ export function SubtopicDetail({
   onBookmarkToggle,
   onNotesUpdate,
 }: SubtopicDetailProps) {
-  const progress = getSubtopicProgress(subtopic.id);
+  const [allProgress, setAllProgress] = useState<Record<string, any>>({});
+  const [progress, setProgress] = useState(getSubtopicProgress(subtopic.id));
+  
+  useEffect(() => {
+    setAllProgress(getProgress());
+    setProgress(getSubtopicProgress(subtopic.id));
+  }, [subtopic.id]);
+
   const status = progress?.status || "not-started";
   const bookmarked = progress?.bookmarked || false;
   const [notes, setNotes] = useState(progress?.notes || "");
-
-  const allProgress = getProgress();
 
   const isPrerequisiteCompleted = (prereqId: string) => {
     return allProgress[prereqId]?.status === "completed";
@@ -56,6 +61,80 @@ export function SubtopicDetail({
 
   const handleNotesBlur = () => {
     onNotesUpdate(subtopic.id, notes);
+  };
+
+  // Categorize resources by type
+  const categorizedResources = useMemo(() => {
+    const categories: {
+      docs: Resource[];
+      videos: Resource[];
+      articles: Resource[];
+    } = {
+      docs: [],
+      videos: [],
+      articles: [],
+    };
+
+    subtopic.resources.forEach((resource) => {
+      if (resource.type === "doc") {
+        categories.docs.push(resource);
+      } else if (resource.type === "video") {
+        categories.videos.push(resource);
+      } else {
+        categories.articles.push(resource);
+      }
+    });
+
+    return categories;
+  }, [subtopic.resources]);
+
+  const ResourceIcon = ({ type }: { type: Resource["type"] }) => {
+    switch (type) {
+      case "doc":
+        return <BookOpen className="size-4 text-muted-foreground flex-shrink-0" />;
+      case "video":
+        return <Play className="size-4 text-muted-foreground flex-shrink-0" />;
+      default:
+        return <FileText className="size-4 text-muted-foreground flex-shrink-0" />;
+    }
+  };
+
+  const ResourceSection = ({
+    title,
+    resources,
+    icon: Icon,
+  }: {
+    title: string;
+    resources: Resource[];
+    icon: React.ElementType;
+  }) => {
+    if (resources.length === 0) return null;
+
+    return (
+      <div>
+        <h3 className="font-medium text-sm mb-2 flex items-center gap-2">
+          <Icon className="size-4" />
+          {title}
+        </h3>
+        <div className="space-y-2">
+          {resources.map((resource, index) => (
+            <a
+              key={index}
+              href={resource.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 p-2 rounded-md border hover:bg-accent transition-colors text-sm group"
+            >
+              <ResourceIcon type={resource.type} />
+              <span className="flex-1 group-hover:text-primary transition-colors">
+                {resource.title}
+              </span>
+              <ExternalLink className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+            </a>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -83,11 +162,6 @@ export function SubtopicDetail({
                 )}
                 <span>{subtopic.title}</span>
               </DialogTitle>
-              {subtopic.description && (
-                <DialogDescription className="mt-2">
-                  {subtopic.description}
-                </DialogDescription>
-              )}
             </div>
             <Button
               variant="ghost"
@@ -107,18 +181,21 @@ export function SubtopicDetail({
         </DialogHeader>
 
         <div className="space-y-6">
+          {/* Summary Section */}
+          {subtopic.description && (
+            <div className="bg-muted/50 rounded-lg p-4">
+              <p className="text-sm leading-relaxed">{subtopic.description}</p>
+            </div>
+          )}
+
           {/* Metadata */}
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            {subtopic.estimatedTime && (
-              <div className="flex items-center gap-1.5">
-                <Clock className="size-4" />
-                <span>{subtopic.estimatedTime}</span>
-              </div>
-            )}
-            {subtopic.difficulty && (
-              <span className="capitalize">{subtopic.difficulty}</span>
-            )}
-          </div>
+          {subtopic.difficulty && (
+            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="capitalize px-2 py-1 rounded-md bg-muted">
+                {subtopic.difficulty}
+              </span>
+            </div>
+          )}
 
           {/* Prerequisites */}
           {subtopic.prerequisites.length > 0 && (
@@ -168,27 +245,25 @@ export function SubtopicDetail({
             </div>
           )}
 
-          {/* Resources */}
+          {/* Resources - Categorized */}
           {subtopic.resources.length > 0 && (
-            <div>
-              <h3 className="font-medium text-sm mb-2">Resources</h3>
-              <div className="space-y-2">
-                {subtopic.resources.map((resource, index) => (
-                  <a
-                    key={index}
-                    href={resource.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 p-2 rounded-md border hover:bg-accent transition-colors text-sm"
-                  >
-                    <ExternalLink className="size-4 text-muted-foreground shrink-0" />
-                    <span className="flex-1">{resource.title}</span>
-                    <span className="text-muted-foreground text-xs capitalize">
-                      {resource.type}
-                    </span>
-                  </a>
-                ))}
-              </div>
+            <div className="space-y-4">
+              <h3 className="font-medium text-sm">Resources</h3>
+              <ResourceSection
+                title="Official Documentation"
+                resources={categorizedResources.docs}
+                icon={BookOpen}
+              />
+              <ResourceSection
+                title="Videos"
+                resources={categorizedResources.videos}
+                icon={Play}
+              />
+              <ResourceSection
+                title="Articles & Tutorials"
+                resources={categorizedResources.articles}
+                icon={FileText}
+              />
             </div>
           )}
 

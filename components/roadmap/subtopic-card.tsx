@@ -1,6 +1,6 @@
 "use client";
 
-import { Bookmark, Clock, Lock } from "lucide-react";
+import { Bookmark, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -56,7 +56,9 @@ export function SubtopicCard({
         </div>
       );
     }
-    return <div className="size-4 rounded-full border-2 border-muted-foreground/30" />;
+    return (
+      <div className="size-4 rounded-full border-2 border-muted-foreground/30" />
+    );
   };
 
   return (
@@ -67,7 +69,7 @@ export function SubtopicCard({
       )}
     >
       <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 pt-0.5">
+        <div className="shrink-0 pt-0.5">
           <Checkbox
             checked={status === "completed"}
             onCheckedChange={(checked) => {
@@ -77,7 +79,9 @@ export function SubtopicCard({
               );
             }}
             disabled={isBlocked}
-            aria-label={`Mark ${subtopic.title} as ${status === "completed" ? "completed" : "not started"}`}
+            aria-label={`Mark ${subtopic.title} as ${
+              status === "completed" ? "completed" : "not started"
+            }`}
           />
         </div>
 
@@ -97,7 +101,7 @@ export function SubtopicCard({
               )}
             </div>
 
-            <div className="flex items-center gap-1 flex-shrink-0">
+            <div className="flex items-center gap-1 shrink-0">
               <Button
                 variant="ghost"
                 size="icon-sm"
@@ -109,22 +113,13 @@ export function SubtopicCard({
                 aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
               >
                 <Bookmark
-                  className={cn(
-                    "size-4",
-                    bookmarked && "fill-current"
-                  )}
+                  className={cn("size-4", bookmarked && "fill-current")}
                 />
               </Button>
             </div>
           </div>
 
           <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
-            {subtopic.estimatedTime && (
-              <div className="flex items-center gap-1">
-                <Clock className="size-3" />
-                <span>{subtopic.estimatedTime}</span>
-              </div>
-            )}
             {subtopic.difficulty && (
               <span className="capitalize">{subtopic.difficulty}</span>
             )}
@@ -161,4 +156,3 @@ export function SubtopicCard({
     </div>
   );
 }
-

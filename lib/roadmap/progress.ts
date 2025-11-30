@@ -1,4 +1,5 @@
 import type { RoadmapProgress, UserProgress, SubtopicStatus } from "./types";
+import { roadmapData } from "./data";
 
 const STORAGE_KEY = "prime-roadmap-progress";
 
@@ -70,10 +71,7 @@ export function updateNotes(subtopicId: string, notes: string): void {
   updateSubtopicProgress(subtopicId, { notes });
 }
 
-export function updateStatus(
-  subtopicId: string,
-  status: SubtopicStatus
-): void {
+export function updateStatus(subtopicId: string, status: SubtopicStatus): void {
   updateSubtopicProgress(subtopicId, { status });
 }
 
@@ -84,11 +82,27 @@ export function getCompletionStats(progress: RoadmapProgress): {
   notStarted: number;
   percentage: number;
 } {
-  const entries = Object.values(progress);
-  const total = entries.length;
-  const completed = entries.filter((e) => e.status === "completed").length;
-  const inProgress = entries.filter((e) => e.status === "in-progress").length;
-  const notStarted = entries.filter((e) => e.status === "not-started").length;
+  // Count all subtopics across all topics
+  let total = 0;
+  let completed = 0;
+  let inProgress = 0;
+  let notStarted = 0;
+
+  roadmapData.topics.forEach((topic) => {
+    topic.subtopics.forEach((subtopic) => {
+      total++;
+      const subtopicProgress = progress[subtopic.id];
+      const status = subtopicProgress?.status || "not-started";
+      
+      if (status === "completed") {
+        completed++;
+      } else if (status === "in-progress") {
+        inProgress++;
+      } else {
+        notStarted++;
+      }
+    });
+  });
 
   return {
     total,
@@ -98,4 +112,3 @@ export function getCompletionStats(progress: RoadmapProgress): {
     percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
   };
 }
-

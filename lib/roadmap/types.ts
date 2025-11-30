@@ -17,7 +17,6 @@ export interface Subtopic {
   order: number;
   prerequisites: string[];
   resources: Resource[];
-  estimatedTime: string;
   difficulty: Difficulty;
 }
 

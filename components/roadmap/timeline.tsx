@@ -109,8 +109,7 @@ export function Timeline({ onSubtopicClick, filter = "all" }: TimelineProps) {
       <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-border" />
 
       <div className="space-y-8">
-        {filteredSubtopics.map(({ subtopic, topicTitle, topicOrder }, index) => {
-          const status = getStatus(subtopic.id);
+        {filteredSubtopics.map(({ subtopic, topicTitle, topicOrder }) => {
           const blocked = isBlocked(subtopic);
 
           return (
@@ -165,4 +164,3 @@ export function Timeline({ onSubtopicClick, filter = "all" }: TimelineProps) {
     </div>
   );
 }
-
