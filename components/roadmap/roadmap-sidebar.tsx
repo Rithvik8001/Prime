@@ -1,9 +1,11 @@
 "use client";
 
-import { Bookmark, ChevronDown, ChevronRight } from "lucide-react";
+import { Bookmark, ChevronDown, ChevronRight, Lock } from "lucide-react";
 import { useState, useEffect } from "react";
 import { roadmapData } from "@/lib/roadmap/data";
 import { getProgress, getCompletionStats } from "@/lib/roadmap/progress";
+import { cn } from "@/lib/utils";
+import type { Subtopic } from "@/lib/roadmap/types";
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +27,7 @@ interface RoadmapSidebarProps {
   onFilterChange?: (
     filter: "all" | "in-progress" | "completed" | "bookmarked"
   ) => void;
+  onSubtopicClick?: (subtopic: Subtopic) => void;
 }
 
 export function RoadmapSidebar({
@@ -32,6 +35,7 @@ export function RoadmapSidebar({
   onTopicSelect,
   filter = "all",
   onFilterChange,
+  onSubtopicClick,
 }: RoadmapSidebarProps) {
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
   const [stats, setStats] = useState({
@@ -89,6 +93,68 @@ export function RoadmapSidebar({
     if (filter === "all") return true;
     return getSubtopicCount(topic.id) > 0;
   });
+
+  const getSubtopicStatus = (subtopicId: string) => {
+    return progress[subtopicId]?.status || "not-started";
+  };
+
+  const isSubtopicBlocked = (subtopic: Subtopic) => {
+    if (subtopic.prerequisites.length === 0) return false;
+    return subtopic.prerequisites.some(
+      (prereqId) => getSubtopicStatus(prereqId) !== "completed"
+    );
+  };
+
+  const getStatusIcon = (subtopic: Subtopic) => {
+    const status = getSubtopicStatus(subtopic.id);
+    const blocked = isSubtopicBlocked(subtopic);
+    const bookmarked = progress[subtopic.id]?.bookmarked || false;
+
+    if (blocked) {
+      return <Lock className="size-3 text-destructive" />;
+    }
+    if (status === "completed") {
+      return (
+        <div className="size-3 rounded-full bg-green-500 flex items-center justify-center">
+          <div className="size-1.5 rounded-full bg-white" />
+        </div>
+      );
+    }
+    if (status === "in-progress") {
+      return (
+        <div className="size-3 rounded-full bg-blue-500 flex items-center justify-center">
+          <div className="size-1.5 rounded-full bg-white animate-pulse" />
+        </div>
+      );
+    }
+    return (
+      <div className="size-3 rounded-full border-2 border-sidebar-foreground/30" />
+    );
+  };
+
+  const getFilteredSubtopics = (topicId: string) => {
+    const topic = roadmapData.topics.find((t) => t.id === topicId);
+    if (!topic) return [];
+
+    if (filter === "all") return topic.subtopics;
+
+    return topic.subtopics.filter((subtopic) => {
+      const subtopicProgress = progress[subtopic.id];
+      if (filter === "completed" && subtopicProgress?.status !== "completed") {
+        return false;
+      }
+      if (
+        filter === "in-progress" &&
+        subtopicProgress?.status !== "in-progress"
+      ) {
+        return false;
+      }
+      if (filter === "bookmarked" && !subtopicProgress?.bookmarked) {
+        return false;
+      }
+      return true;
+    });
+  };
 
   return (
     <Sidebar>
@@ -165,6 +231,7 @@ export function RoadmapSidebar({
                 const isExpanded = expandedTopics.has(topic.id);
                 const isSelected = selectedTopicId === topic.id;
                 const subtopicCount = getSubtopicCount(topic.id);
+                const filteredSubtopics = getFilteredSubtopics(topic.id);
 
                 return (
                   <SidebarMenuItem key={topic.id}>
@@ -194,6 +261,32 @@ export function RoadmapSidebar({
                         <SidebarMenuBadge>{subtopicCount}</SidebarMenuBadge>
                       )}
                     </SidebarMenuButton>
+                    {isExpanded && filteredSubtopics.length > 0 && (
+                      <SidebarMenu>
+                        {filteredSubtopics.map((subtopic) => {
+                          const status = getSubtopicStatus(subtopic.id);
+                          const blocked = isSubtopicBlocked(subtopic);
+                          const bookmarked = progress[subtopic.id]?.bookmarked || false;
+
+                          return (
+                            <SidebarMenuItem key={subtopic.id}>
+                              <SidebarMenuButton
+                                onClick={() => onSubtopicClick?.(subtopic)}
+                                className="pl-8"
+                              >
+                                {getStatusIcon(subtopic)}
+                                <span className="flex-1 text-left truncate text-xs">
+                                  {subtopic.title}
+                                </span>
+                                {bookmarked && (
+                                  <Bookmark className="size-3 text-yellow-500 fill-current shrink-0" />
+                                )}
+                              </SidebarMenuButton>
+                            </SidebarMenuItem>
+                          );
+                        })}
+                      </SidebarMenu>
+                    )}
                   </SidebarMenuItem>
                 );
               })}

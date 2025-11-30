@@ -4,14 +4,16 @@ import { Bookmark, ExternalLink, Lock, FileText, Play, BookOpen } from "lucide-r
 import { useState, useEffect, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Separator } from "@/components/ui/separator";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { Subtopic, SubtopicStatus, Resource } from "@/lib/roadmap/types";
 import { getSubtopicProgress, getProgress } from "@/lib/roadmap/progress";
 import { roadmapData } from "@/lib/roadmap/data";
@@ -31,6 +33,7 @@ export function SubtopicDetail({
   onBookmarkToggle,
   onNotesUpdate,
 }: SubtopicDetailProps) {
+  const isMobile = useIsMobile();
   const [allProgress, setAllProgress] = useState<Record<string, any>>({});
   const [progress, setProgress] = useState(getSubtopicProgress(subtopic.id));
   
@@ -112,24 +115,24 @@ export function SubtopicDetail({
 
     return (
       <div>
-        <h3 className="font-medium text-sm mb-2 flex items-center gap-2">
+        <h4 className="font-semibold text-sm mb-3 flex items-center gap-2 text-foreground">
           <Icon className="size-4" />
           {title}
-        </h3>
-        <div className="space-y-2">
+        </h4>
+        <div className="space-y-2.5">
           {resources.map((resource, index) => (
             <a
               key={index}
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 p-2 rounded-md border hover:bg-accent transition-colors text-sm group"
+              className="flex items-center gap-3 p-3 rounded-lg border hover:bg-accent hover:border-accent-foreground/20 transition-all text-sm group"
             >
               <ResourceIcon type={resource.type} />
-              <span className="flex-1 group-hover:text-primary transition-colors">
+              <span className="flex-1 font-medium group-hover:text-primary transition-colors">
                 {resource.title}
               </span>
-              <ExternalLink className="size-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              <ExternalLink className="size-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
             </a>
           ))}
         </div>
@@ -138,30 +141,50 @@ export function SubtopicDetail({
   };
 
   return (
-    <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
+    <Sheet open={true} onOpenChange={onClose}>
+      <SheetContent
+        side={isMobile ? "bottom" : "right"}
+        className={cn(
+          "overflow-y-auto p-0",
+          isMobile
+            ? "max-h-[90vh] w-full"
+            : "w-full sm:max-w-2xl"
+        )}
+      >
+        <SheetHeader className="px-6 pt-6 pb-6">
           <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <DialogTitle className="flex items-center gap-2">
+            <div className="flex-1 min-w-0">
+              <SheetTitle className="flex items-center gap-2 text-xl md:text-2xl mb-4">
                 {isBlocked && (
                   <Lock
-                    className="size-5 text-destructive"
+                    className="size-5 text-destructive shrink-0"
                     aria-label="Blocked"
                   />
                 )}
                 {status === "completed" && (
-                  <div className="size-5 rounded-full bg-green-500 flex items-center justify-center">
+                  <div className="size-5 rounded-full bg-green-500 flex items-center justify-center shrink-0">
                     <div className="size-2.5 rounded-full bg-white" />
                   </div>
                 )}
                 {status === "in-progress" && (
-                  <div className="size-5 rounded-full bg-blue-500 flex items-center justify-center">
+                  <div className="size-5 rounded-full bg-blue-500 flex items-center justify-center shrink-0">
                     <div className="size-2.5 rounded-full bg-white animate-pulse" />
                   </div>
                 )}
-                <span>{subtopic.title}</span>
-              </DialogTitle>
+                <span className="break-words">{subtopic.title}</span>
+              </SheetTitle>
+              {subtopic.description && (
+                <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-4">
+                  {subtopic.description}
+                </p>
+              )}
+              {subtopic.difficulty && (
+                <div>
+                  <span className="inline-flex capitalize px-3 py-1 rounded-md bg-muted text-xs font-medium">
+                    {subtopic.difficulty}
+                  </span>
+                </div>
+              )}
             </div>
             <Button
               variant="ghost"
@@ -178,30 +201,15 @@ export function SubtopicDetail({
               />
             </Button>
           </div>
-        </DialogHeader>
+        </SheetHeader>
 
-        <div className="space-y-6">
-          {/* Summary Section */}
-          {subtopic.description && (
-            <div className="bg-muted/50 rounded-lg p-4">
-              <p className="text-sm leading-relaxed">{subtopic.description}</p>
-            </div>
-          )}
-
-          {/* Metadata */}
-          {subtopic.difficulty && (
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span className="capitalize px-2 py-1 rounded-md bg-muted">
-                {subtopic.difficulty}
-              </span>
-            </div>
-          )}
+        <div className="space-y-8 px-6 pb-6">
 
           {/* Prerequisites */}
           {subtopic.prerequisites.length > 0 && (
             <div>
-              <h3 className="font-medium text-sm mb-2">Prerequisites</h3>
-              <div className="space-y-2">
+              <h3 className="font-semibold text-base mb-3">Prerequisites</h3>
+              <div className="space-y-2.5">
                 {subtopic.prerequisites.map((prereqId) => {
                   const prereq = getPrerequisiteSubtopic(prereqId);
                   const isCompleted = isPrerequisiteCompleted(prereqId);
@@ -211,21 +219,22 @@ export function SubtopicDetail({
                     <div
                       key={prereqId}
                       className={cn(
-                        "flex items-center gap-2 p-2 rounded-md border text-sm",
+                        "flex items-center gap-3 p-3 rounded-lg border text-sm transition-colors",
                         isCompleted
                           ? "border-green-500/20 bg-green-500/5"
                           : "border-destructive/20 bg-destructive/5"
                       )}
                     >
                       {isCompleted ? (
-                        <div className="size-4 rounded-full bg-green-500 flex items-center justify-center shrink-0">
-                          <div className="size-1.5 rounded-full bg-white" />
+                        <div className="size-5 rounded-full bg-green-500 flex items-center justify-center shrink-0">
+                          <div className="size-2 rounded-full bg-white" />
                         </div>
                       ) : (
-                        <Lock className="size-4 text-destructive shrink-0" />
+                        <Lock className="size-5 text-destructive shrink-0" />
                       )}
                       <span
                         className={cn(
+                          "font-medium",
                           isCompleted
                             ? "text-foreground"
                             : "text-muted-foreground"
@@ -242,14 +251,14 @@ export function SubtopicDetail({
 
           {/* Resources - Categorized (Only show if prerequisites completed) */}
           {isBlocked ? (
-            <div className="bg-muted/50 rounded-lg p-4 border border-destructive/20">
+            <div className="bg-muted/50 rounded-lg p-5 border border-destructive/20">
               <div className="flex items-start gap-3">
                 <Lock className="size-5 text-destructive shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h3 className="font-medium text-sm mb-1 text-destructive">
+                  <h3 className="font-semibold text-sm mb-2 text-destructive">
                     Resources Locked
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
                     Complete all prerequisites to unlock learning resources for this subtopic. 
                     You can still bookmark this subtopic and add notes while you work on the prerequisites.
                   </p>
@@ -258,42 +267,47 @@ export function SubtopicDetail({
             </div>
           ) : (
             subtopic.resources.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="font-medium text-sm">Resources</h3>
-                <ResourceSection
-                  title="Official Documentation"
-                  resources={categorizedResources.docs}
-                  icon={BookOpen}
-                />
-                <ResourceSection
-                  title="Videos"
-                  resources={categorizedResources.videos}
-                  icon={Play}
-                />
-                <ResourceSection
-                  title="Articles & Tutorials"
-                  resources={categorizedResources.articles}
-                  icon={FileText}
-                />
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-semibold text-base mb-4">Learning Resources</h3>
+                  <div className="space-y-6">
+                    <ResourceSection
+                      title="Official Documentation"
+                      resources={categorizedResources.docs}
+                      icon={BookOpen}
+                    />
+                    <ResourceSection
+                      title="Videos"
+                      resources={categorizedResources.videos}
+                      icon={Play}
+                    />
+                    <ResourceSection
+                      title="Articles & Tutorials"
+                      resources={categorizedResources.articles}
+                      icon={FileText}
+                    />
+                  </div>
+                </div>
               </div>
             )
           )}
 
           {/* Notes */}
           <div>
-            <h3 className="font-medium text-sm mb-2">Your Notes</h3>
+            <h3 className="font-semibold text-base mb-3">Your Notes</h3>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               onBlur={handleNotesBlur}
               placeholder="Add your personal notes here..."
-              className="w-full min-h-[120px] rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full min-h-[140px] rounded-lg border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
             />
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-4 pt-4 border-t">
-            <div className="flex items-center gap-2">
+          <Separator className="my-2" />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
+            <div className="flex items-center gap-3">
               <Checkbox
                 id="completed-checkbox"
                 checked={status === "completed"}
@@ -317,7 +331,7 @@ export function SubtopicDetail({
               >
                 Mark as completed
                 {isBlocked && status !== "completed" && (
-                  <span className="text-xs text-destructive ml-1">
+                  <span className="text-xs text-destructive ml-1.5">
                     (Complete prerequisites first)
                   </span>
                 )}
@@ -331,6 +345,7 @@ export function SubtopicDetail({
                 variant="default"
                 onClick={() => onStatusChange(subtopic.id, "in-progress")}
                 disabled={isBlocked}
+                className="w-full sm:w-auto"
               >
                 Start Learning
               </Button>
@@ -339,13 +354,14 @@ export function SubtopicDetail({
               <Button
                 variant="outline"
                 onClick={() => onStatusChange(subtopic.id, "not-started")}
+                className="w-full sm:w-auto"
               >
                 Mark as Not Started
               </Button>
             )}
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   );
 }

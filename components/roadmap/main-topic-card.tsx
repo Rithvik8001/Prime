@@ -56,26 +56,26 @@ export function MainTopicCard({
       )}
     >
       <CardHeader
-        className="cursor-pointer"
+        className="cursor-pointer p-4 md:p-6"
         onClick={() => setIsExpanded(!isExpanded)}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            <CardTitle className="flex items-center gap-2">
-              <span className="text-muted-foreground text-sm font-mono">
+        <div className="flex items-start md:items-center justify-between gap-2 md:gap-3">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+              <span className="text-muted-foreground text-xs sm:text-sm font-mono">
                 {topic.order}
               </span>
-              <span>{topic.title}</span>
+              <span className="text-base sm:text-lg break-words">{topic.title}</span>
             </CardTitle>
             {topic.description && (
-              <p className="text-muted-foreground text-sm mt-1">
+              <p className="text-muted-foreground text-xs sm:text-sm mt-1 break-words">
                 {topic.description}
               </p>
             )}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
             {totalCount > 0 && (
-              <div className="text-right">
+              <div className="text-right hidden sm:block">
                 <div className="text-muted-foreground text-xs">
                   {completedCount}/{totalCount} completed
                 </div>
@@ -85,9 +85,9 @@ export function MainTopicCard({
               </div>
             )}
             {isExpanded ? (
-              <ChevronUp className="size-5 text-muted-foreground" />
+              <ChevronUp className="size-4 md:size-5 text-muted-foreground" />
             ) : (
-              <ChevronDown className="size-5 text-muted-foreground" />
+              <ChevronDown className="size-4 md:size-5 text-muted-foreground" />
             )}
           </div>
         </div>
@@ -108,13 +108,13 @@ export function MainTopicCard({
       </CardHeader>
 
       {isExpanded && (
-        <CardContent>
+        <CardContent className="p-4 md:p-6 pt-0 md:pt-0">
           {topic.subtopics.length === 0 ? (
             <div className="text-muted-foreground text-sm py-8 text-center">
               No subtopics yet. Coming soon!
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {topic.subtopics.map((subtopic) => (
                 <SubtopicCard
                   key={subtopic.id}

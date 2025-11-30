@@ -64,11 +64,11 @@ export function SubtopicCard({
   return (
     <div
       className={cn(
-        "group relative rounded-lg border p-4 transition-all hover:shadow-md",
+        "group relative rounded-lg border p-3 md:p-4 transition-all hover:shadow-md",
         getStatusColor()
       )}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2 md:gap-3">
         <div className="shrink-0 pt-0.5">
           <Checkbox
             checked={status === "completed"}
@@ -88,15 +88,15 @@ export function SubtopicCard({
 
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-1.5 md:gap-2 mb-1">
                 {getStatusIcon()}
-                <h3 className="font-medium text-sm leading-tight">
+                <h3 className="font-medium text-xs md:text-sm leading-tight wrap-break-word">
                   {subtopic.title}
                 </h3>
               </div>
               {subtopic.description && (
-                <p className="text-muted-foreground text-xs mt-1 line-clamp-2">
+                <p className="text-muted-foreground text-xs mt-1 line-clamp-2 wrap-break-word">
                   {subtopic.description}
                 </p>
               )}
@@ -108,19 +108,22 @@ export function SubtopicCard({
                 size="icon-sm"
                 onClick={() => onBookmarkToggle(subtopic.id)}
                 className={cn(
-                  "size-7",
+                  "size-6 md:size-7",
                   bookmarked && "text-yellow-500 hover:text-yellow-600"
                 )}
                 aria-label={bookmarked ? "Remove bookmark" : "Add bookmark"}
               >
                 <Bookmark
-                  className={cn("size-4", bookmarked && "fill-current")}
+                  className={cn(
+                    "size-3.5 md:size-4",
+                    bookmarked && "fill-current"
+                  )}
                 />
               </Button>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 mt-3 text-xs text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 md:gap-4 mt-2 md:mt-3 text-xs text-muted-foreground">
             {subtopic.difficulty && (
               <span className="capitalize">{subtopic.difficulty}</span>
             )}
@@ -132,12 +135,12 @@ export function SubtopicCard({
             )}
           </div>
 
-          <div className="flex items-center gap-2 mt-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-2 md:mt-3">
             <Button
               variant="outline"
               size="sm"
               onClick={() => onOpenDetail(subtopic)}
-              className="text-xs"
+              className="text-xs w-full sm:w-auto"
             >
               View Details
             </Button>
@@ -146,7 +149,7 @@ export function SubtopicCard({
                 variant="ghost"
                 size="sm"
                 onClick={() => onStatusChange(subtopic.id, "in-progress")}
-                className="text-xs"
+                className="text-xs w-full sm:w-auto"
                 disabled={isBlocked}
               >
                 Start Learning
