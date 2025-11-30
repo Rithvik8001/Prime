@@ -74,17 +74,19 @@ export function Content({
   }
 
   return (
-    <div className="space-y-4">
-      {filteredTopics.map((topic) => (
-        <MainTopicCard
-          key={topic.id}
-          topic={topic}
-          onStatusChange={onStatusChange}
-          onBookmarkToggle={onBookmarkToggle}
-          onOpenDetail={onOpenDetail}
-          progress={progress}
-        />
-      ))}
+    <div className="max-w-7xl mx-auto w-full">
+      <div className="space-y-4">
+        {filteredTopics.map((topic) => (
+          <MainTopicCard
+            key={topic.id}
+            topic={topic}
+            onStatusChange={onStatusChange}
+            onBookmarkToggle={onBookmarkToggle}
+            onOpenDetail={onOpenDetail}
+            progress={progress}
+          />
+        ))}
+      </div>
     </div>
   );
 }

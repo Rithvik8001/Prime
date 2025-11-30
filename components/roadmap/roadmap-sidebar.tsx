@@ -31,6 +31,7 @@ interface RoadmapSidebarProps {
   ) => void;
   onSubtopicClick?: (subtopic: Subtopic) => void;
   progress: RoadmapProgress;
+  showOnlyBookmarked?: boolean;
 }
 
 export function RoadmapSidebar({
@@ -40,6 +41,7 @@ export function RoadmapSidebar({
   onFilterChange,
   onSubtopicClick,
   progress,
+  showOnlyBookmarked = false,
 }: RoadmapSidebarProps) {
   const pathname = usePathname();
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
@@ -61,6 +63,11 @@ export function RoadmapSidebar({
     const topic = roadmapData.topics.find((t) => t.id === topicId);
     if (!topic) return 0;
 
+    // On bookmarks page, only count bookmarked subtopics
+    if (showOnlyBookmarked) {
+      return topic.subtopics.filter((st) => progress[st.id]?.bookmarked).length;
+    }
+
     switch (filter) {
       case "completed":
         return topic.subtopics.filter(
@@ -79,6 +86,10 @@ export function RoadmapSidebar({
   };
 
   const filteredTopics = roadmapData.topics.filter((topic) => {
+    if (showOnlyBookmarked) {
+      // On bookmarks page, only show topics with bookmarked subtopics
+      return topic.subtopics.some((st) => progress[st.id]?.bookmarked);
+    }
     if (filter === "all") return true;
     return getSubtopicCount(topic.id) > 0;
   });
@@ -124,6 +135,11 @@ export function RoadmapSidebar({
   const getFilteredSubtopics = (topicId: string) => {
     const topic = roadmapData.topics.find((t) => t.id === topicId);
     if (!topic) return [];
+
+    // On bookmarks page, only show bookmarked subtopics
+    if (showOnlyBookmarked) {
+      return topic.subtopics.filter((subtopic) => progress[subtopic.id]?.bookmarked);
+    }
 
     if (filter === "all") return topic.subtopics;
 

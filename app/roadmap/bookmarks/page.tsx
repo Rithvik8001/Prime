@@ -3,16 +3,18 @@
 import { useRoadmap } from "@/hooks/use-roadmap";
 import type { Subtopic, SubtopicStatus } from "@/lib/roadmap/types";
 import { useState } from "react";
+import Link from "next/link";
 import { SubtopicDetail } from "@/components/roadmap/subtopic-detail";
 import { RoadmapSidebar } from "@/components/roadmap/roadmap-sidebar";
 import { Content } from "@/components/roadmap/content";
 import { Search } from "@/components/roadmap/search";
+import { Button } from "@/components/ui/button";
 import {
   SidebarProvider,
   SidebarInset,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Bookmark } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function BookmarksPage() {
   const { progress, handleStatusChange, handleBookmarkToggle, handleNotesUpdate } =
@@ -39,31 +41,32 @@ export default function BookmarksPage() {
         filter="all"
         onSubtopicClick={handleOpenDetail}
         progress={progress}
+        showOnlyBookmarked={true}
       />
       <SidebarInset>
         <div className="flex h-screen flex-col overflow-hidden">
-          <div className="border-b p-3 md:p-4">
-            <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-2 mb-3 md:mb-4">
-              <div className="flex items-center gap-2">
+          <div className="border-b p-3 md:p-4 relative">
+            <div className="grid grid-cols-3 items-center gap-3 md:gap-4">
+              <div className="flex justify-start">
                 <SidebarTrigger />
-                <div className="flex-1 md:flex-none">
-                  <div className="flex items-center gap-2 mb-1 md:mb-2">
-                    <Bookmark className="size-6 md:size-7 text-yellow-500" />
-                    <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-                      Bookmarks
-                    </h1>
-                  </div>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    Your saved learning topics
-                  </p>
+              </div>
+              <div className="flex justify-center">
+                <div className="w-full max-w-2xl">
+                  <Search onResultClick={handleSearchResultClick} />
                 </div>
               </div>
-            </div>
-            <div className="w-full md:max-w-md">
-              <Search onResultClick={handleSearchResultClick} />
+              <div className="flex justify-end">
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/roadmap">
+                    <ArrowLeft className="size-4 mr-2" />
+                    <span className="hidden sm:inline">Back to Roadmap</span>
+                    <span className="sm:hidden">Back</span>
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="flex-1 overflow-y-auto p-4 md:p-6">
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
             <Content
               onStatusChange={handleStatusChange}
               onBookmarkToggle={handleBookmarkToggle}
