@@ -1399,11 +1399,42 @@ export const roadmapData: RoadmapData = {
           difficulty: "beginner",
         },
         {
+          id: "react-routing",
+          title: "React Router",
+          description:
+            "Implement client-side routing with React Router: Routes, Route, Link, NavLink, useNavigate, and nested routes",
+          order: 7,
+          prerequisites: ["react-props-children", "react-events"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Router Documentation",
+              url: "https://reactrouter.com/en/main",
+            },
+            {
+              type: "video",
+              title: "React Router Tutorial",
+              url: "https://www.youtube.com/watch?v=Ul3y1LXxzdU",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Router Tutorial",
+              url: "https://www.freecodecamp.org/news/react-router-tutorial/",
+            },
+            {
+              type: "doc",
+              title: "React Router: Getting Started",
+              url: "https://reactrouter.com/en/main/start/overview",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
           id: "react-hooks-advanced",
           title: "Advanced Hooks",
           description:
             "Master useRef, useMemo, useCallback, useContext, and custom hooks for performance and code reuse",
-          order: 7,
+          order: 8,
           prerequisites: ["react-effects"],
           resources: [
             {
@@ -1434,7 +1465,7 @@ export const roadmapData: RoadmapData = {
           title: "Performance Optimization",
           description:
             "Optimize React apps with memo, useMemo, useCallback, code splitting, and React.memo",
-          order: 8,
+          order: 9,
           prerequisites: ["react-hooks-advanced"],
           resources: [
             {
@@ -1465,7 +1496,7 @@ export const roadmapData: RoadmapData = {
           title: "Context API",
           description:
             "Share state across components without prop drilling using React Context API, useContext hook, and context providers",
-          order: 9,
+          order: 10,
           prerequisites: ["react-hooks-advanced"],
           resources: [
             {
@@ -1683,101 +1714,430 @@ export const roadmapData: RoadmapData = {
       ],
     },
     {
-      id: "data-fetching-fundamentals",
-      title: "Data Fetching Fundamentals",
-      description: "Understanding how to fetch and handle data",
-      order: 8,
-      subtopics: [],
-    },
-    {
-      id: "data-fetching-tools",
-      title: "Data Fetching Tools",
-      description: "Tools and libraries for data fetching",
-      order: 9,
-      subtopics: [],
-    },
-    {
       id: "tailwind",
       title: "Tailwind",
       description: "Utility-first CSS framework",
-      order: 10,
-      subtopics: [],
+      order: 8,
+      subtopics: [
+        {
+          id: "tailwind-basics",
+          title: "Tailwind CSS Basics",
+          description:
+            "Learn Tailwind fundamentals: installation, utility classes, spacing, colors, typography, and the utility-first approach",
+          order: 1,
+          prerequisites: ["css-basics-selectors"],
+          resources: [
+            {
+              type: "doc",
+              title: "Tailwind CSS Documentation",
+              url: "https://tailwindcss.com/docs",
+            },
+            {
+              type: "video",
+              title: "Tailwind CSS Tutorial for Beginners",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Tailwind CSS Tutorial",
+              url: "https://www.freecodecamp.org/news/tailwind-css-tutorial/",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: Installation",
+              url: "https://tailwindcss.com/docs/installation",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "tailwind-layout",
+          title: "Layout & Flexbox/Grid",
+          description:
+            "Master Tailwind's layout utilities: flexbox, grid, positioning, display, and container classes",
+          order: 2,
+          prerequisites: ["tailwind-basics", "css-flexbox", "css-grid"],
+          resources: [
+            {
+              type: "doc",
+              title: "Tailwind: Flexbox",
+              url: "https://tailwindcss.com/docs/flex",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: Grid",
+              url: "https://tailwindcss.com/docs/grid-template-columns",
+            },
+            {
+              type: "video",
+              title: "Tailwind Layout Tutorial",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "Tailwind: Layout Utilities",
+              url: "https://tailwindcss.com/docs/display",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "tailwind-responsive",
+          title: "Responsive Design",
+          description:
+            "Master Tailwind's responsive utilities: breakpoints, mobile-first approach, and responsive variants",
+          order: 3,
+          prerequisites: ["tailwind-basics", "css-responsive"],
+          resources: [
+            {
+              type: "doc",
+              title: "Tailwind: Responsive Design",
+              url: "https://tailwindcss.com/docs/responsive-design",
+            },
+            {
+              type: "video",
+              title: "Tailwind Responsive Design",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Tailwind Responsive",
+              url: "https://www.freecodecamp.org/news/responsive-design-with-tailwind-css/",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: Breakpoints",
+              url: "https://tailwindcss.com/docs/responsive-design#breakpoints",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "tailwind-dark-mode",
+          title: "Dark Mode & Variants",
+          description:
+            "Implement dark mode, hover states, focus states, and other variants using Tailwind's variant system",
+          order: 4,
+          prerequisites: ["tailwind-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "Tailwind: Dark Mode",
+              url: "https://tailwindcss.com/docs/dark-mode",
+            },
+            {
+              type: "video",
+              title: "Tailwind Dark Mode Tutorial",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "Tailwind: Variants",
+              url: "https://tailwindcss.com/docs/hover-focus-and-other-states",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: State Variants",
+              url: "https://tailwindcss.com/docs/hover-focus-and-other-states",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "tailwind-customization",
+          title: "Configuration & Customization",
+          description:
+            "Customize Tailwind: tailwind.config.js, custom colors, fonts, spacing, and extending the default theme",
+          order: 5,
+          prerequisites: ["tailwind-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "Tailwind: Configuration",
+              url: "https://tailwindcss.com/docs/configuration",
+            },
+            {
+              type: "video",
+              title: "Tailwind Configuration Tutorial",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Tailwind Config",
+              url: "https://www.freecodecamp.org/news/tailwind-config/",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: Theme Configuration",
+              url: "https://tailwindcss.com/docs/theme",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "tailwind-components",
+          title: "Building Components",
+          description:
+            "Build reusable components with Tailwind, component patterns, and best practices for component architecture",
+          order: 6,
+          prerequisites: ["tailwind-layout", "react-basics"],
+          resources: [
+            {
+              type: "link",
+              title: "Tailwind UI Components",
+              url: "https://tailwindui.com/components",
+            },
+            {
+              type: "video",
+              title: "Building Components with Tailwind",
+              url: "https://www.youtube.com/watch?v=UBOj6rqRUME",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Tailwind Components",
+              url: "https://www.freecodecamp.org/news/tailwind-components/",
+            },
+            {
+              type: "doc",
+              title: "Tailwind: Component Patterns",
+              url: "https://tailwindcss.com/docs/reusing-styles",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "framer-motion",
       title: "Framer Motion",
       description: "Animation library for React",
-      order: 11,
-      subtopics: [],
+      order: 9,
+      subtopics: [
+        {
+          id: "framer-motion-basics",
+          title: "Framer Motion Basics",
+          description:
+            "Learn Framer Motion fundamentals: motion components, basic animations, and the animate prop",
+          order: 1,
+          prerequisites: ["react-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "Framer Motion: Getting Started",
+              url: "https://www.framer.com/motion/introduction/",
+            },
+            {
+              type: "video",
+              title: "Framer Motion Tutorial for Beginners",
+              url: "https://www.youtube.com/watch?v=2V1WK-3HgNk",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Framer Motion Tutorial",
+              url: "https://www.freecodecamp.org/news/framer-motion-tutorial/",
+            },
+            {
+              type: "doc",
+              title: "Framer Motion: Motion Components",
+              url: "https://www.framer.com/motion/component/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "framer-motion-animations",
+          title: "Animations & Transitions",
+          description:
+            "Master animation properties: duration, delay, easing, spring animations, and transition types",
+          order: 2,
+          prerequisites: ["framer-motion-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "Framer Motion: Animation",
+              url: "https://www.framer.com/motion/animation/",
+            },
+            {
+              type: "video",
+              title: "Framer Motion Animations",
+              url: "https://www.youtube.com/watch?v=2V1WK-3HgNk",
+            },
+            {
+              type: "link",
+              title: "Framer Motion: Transitions",
+              url: "https://www.framer.com/motion/transition/",
+            },
+            {
+              type: "doc",
+              title: "Framer Motion: Spring Animations",
+              url: "https://www.framer.com/motion/transition/#spring",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "framer-motion-gestures",
+          title: "Gestures & Interactions",
+          description:
+            "Handle user interactions: hover, tap, drag, whileHover, whileTap, whileDrag, and gesture animations",
+          order: 3,
+          prerequisites: ["framer-motion-animations"],
+          resources: [
+            {
+              type: "doc",
+              title: "Framer Motion: Gestures",
+              url: "https://www.framer.com/motion/gestures/",
+            },
+            {
+              type: "video",
+              title: "Framer Motion Gestures Tutorial",
+              url: "https://www.youtube.com/watch?v=2V1WK-3HgNk",
+            },
+            {
+              type: "link",
+              title: "Framer Motion: Drag",
+              url: "https://www.framer.com/motion/gestures/#drag",
+            },
+            {
+              type: "doc",
+              title: "Framer Motion: While Variants",
+              url: "https://www.framer.com/motion/gestures/#while-hover",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "framer-motion-variants",
+          title: "Variants & Orchestration",
+          description:
+            "Use variants for reusable animations, parent-child animations, and orchestrated sequences",
+          order: 4,
+          prerequisites: ["framer-motion-animations"],
+          resources: [
+            {
+              type: "doc",
+              title: "Framer Motion: Variants",
+              url: "https://www.framer.com/motion/animation/#variants",
+            },
+            {
+              type: "video",
+              title: "Framer Motion Variants Tutorial",
+              url: "https://www.youtube.com/watch?v=2V1WK-3HgNk",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: Framer Motion Variants",
+              url: "https://www.freecodecamp.org/news/framer-motion-variants/",
+            },
+            {
+              type: "doc",
+              title: "Framer Motion: Orchestration",
+              url: "https://www.framer.com/motion/animation/#orchestration",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "framer-motion-layout",
+          title: "Layout Animations",
+          description:
+            "Animate layout changes automatically: layout prop, layoutId, shared layout animations, and AnimatePresence",
+          order: 5,
+          prerequisites: ["framer-motion-variants"],
+          resources: [
+            {
+              type: "doc",
+              title: "Framer Motion: Layout Animations",
+              url: "https://www.framer.com/motion/layout-animations/",
+            },
+            {
+              type: "video",
+              title: "Framer Motion Layout Animations",
+              url: "https://www.youtube.com/watch?v=2V1WK-3HgNk",
+            },
+            {
+              type: "link",
+              title: "Framer Motion: AnimatePresence",
+              url: "https://www.framer.com/motion/animate-presence/",
+            },
+            {
+              type: "doc",
+              title: "Framer Motion: Shared Layout",
+              url: "https://www.framer.com/motion/layout-animations/#shared-layout-animations",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "nextjs",
       title: "Next.js",
       description: "React framework for production",
-      order: 12,
+      order: 10,
       subtopics: [],
     },
     {
       id: "nodejs-fundamentals",
       title: "Node.js Fundamentals",
       description: "JavaScript runtime for server-side development",
-      order: 13,
+      order: 11,
       subtopics: [],
     },
     {
       id: "expressjs",
       title: "Express.js",
       description: "Web application framework for Node.js",
-      order: 14,
+      order: 12,
       subtopics: [],
     },
     {
       id: "databases",
       title: "Databases",
       description: "Understanding database systems and SQL",
-      order: 15,
+      order: 13,
       subtopics: [],
     },
     {
       id: "orms",
       title: "ORMs",
       description: "Object-Relational Mapping tools",
-      order: 16,
+      order: 14,
       subtopics: [],
     },
     {
       id: "caching",
       title: "Caching",
       description: "Caching strategies and implementations",
-      order: 17,
+      order: 15,
       subtopics: [],
     },
     {
       id: "queues",
       title: "Queues",
       description: "Message queues and job processing",
-      order: 18,
+      order: 16,
       subtopics: [],
     },
     {
       id: "security",
       title: "Security",
       description: "Web security best practices",
-      order: 19,
+      order: 17,
       subtopics: [],
     },
     {
       id: "system-design",
       title: "System Design",
       description: "Designing scalable systems",
-      order: 20,
+      order: 18,
       subtopics: [],
     },
     {
       id: "trpc",
       title: "tRPC",
       description: "End-to-end typesafe APIs",
-      order: 21,
+      order: 19,
       subtopics: [],
     },
   ],
