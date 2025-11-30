@@ -1,16 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { roadmapData } from "@/lib/roadmap/data";
 import { MainTopicCard } from "./main-topic-card";
 import type { Subtopic, SubtopicStatus, RoadmapProgress } from "@/lib/roadmap/types";
-import { getProgress } from "@/lib/roadmap/progress";
 
 interface ContentProps {
   onStatusChange: (subtopicId: string, status: SubtopicStatus) => void;
   onBookmarkToggle: (subtopicId: string) => void;
   onOpenDetail: (subtopic: Subtopic) => void;
   filter?: "all" | "in-progress" | "completed" | "bookmarked";
+  progress: RoadmapProgress;
 }
 
 export function Content({
@@ -18,12 +17,8 @@ export function Content({
   onBookmarkToggle,
   onOpenDetail,
   filter = "all",
+  progress,
 }: ContentProps) {
-  const [progress, setProgress] = useState<RoadmapProgress>({});
-
-  useEffect(() => {
-    setProgress(getProgress());
-  }, []);
 
   const getFilteredTopics = () => {
     if (filter === "all") {
@@ -87,6 +82,7 @@ export function Content({
           onStatusChange={onStatusChange}
           onBookmarkToggle={onBookmarkToggle}
           onOpenDetail={onOpenDetail}
+          progress={progress}
         />
       ))}
     </div>

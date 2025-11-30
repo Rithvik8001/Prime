@@ -4,8 +4,11 @@ import { Bookmark, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { Subtopic, SubtopicStatus } from "@/lib/roadmap/types";
-import { getSubtopicProgress } from "@/lib/roadmap/progress";
+import type {
+  Subtopic,
+  SubtopicStatus,
+  RoadmapProgress,
+} from "@/lib/roadmap/types";
 
 interface SubtopicCardProps {
   subtopic: Subtopic;
@@ -13,6 +16,7 @@ interface SubtopicCardProps {
   onBookmarkToggle: (subtopicId: string) => void;
   onOpenDetail: (subtopic: Subtopic) => void;
   isBlocked?: boolean;
+  progress: RoadmapProgress;
 }
 
 export function SubtopicCard({
@@ -21,10 +25,11 @@ export function SubtopicCard({
   onBookmarkToggle,
   onOpenDetail,
   isBlocked = false,
+  progress,
 }: SubtopicCardProps) {
-  const progress = getSubtopicProgress(subtopic.id);
-  const status = progress?.status || "not-started";
-  const bookmarked = progress?.bookmarked || false;
+  const subtopicProgress = progress[subtopic.id];
+  const status = subtopicProgress?.status || "not-started";
+  const bookmarked = subtopicProgress?.bookmarked || false;
 
   const getStatusColor = () => {
     if (isBlocked) return "border-destructive/50 bg-destructive/5";

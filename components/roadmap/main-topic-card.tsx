@@ -1,18 +1,18 @@
 "use client";
 
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SubtopicCard } from "./subtopic-card";
 import type { MainTopic, Subtopic, SubtopicStatus, RoadmapProgress } from "@/lib/roadmap/types";
-import { getProgress } from "@/lib/roadmap/progress";
 
 interface MainTopicCardProps {
   topic: MainTopic;
   onStatusChange: (subtopicId: string, status: SubtopicStatus) => void;
   onBookmarkToggle: (subtopicId: string) => void;
   onOpenDetail: (subtopic: Subtopic) => void;
+  progress: RoadmapProgress;
 }
 
 export function MainTopicCard({
@@ -20,13 +20,9 @@ export function MainTopicCard({
   onStatusChange,
   onBookmarkToggle,
   onOpenDetail,
+  progress,
 }: MainTopicCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [progress, setProgress] = useState<RoadmapProgress>({});
-
-  useEffect(() => {
-    setProgress(getProgress());
-  }, []);
 
   const getSubtopicStatus = (subtopicId: string) => {
     return progress[subtopicId]?.status || "not-started";
@@ -123,6 +119,7 @@ export function MainTopicCard({
                   onBookmarkToggle={onBookmarkToggle}
                   onOpenDetail={onOpenDetail}
                   isBlocked={isSubtopicBlocked(subtopic)}
+                  progress={progress}
                 />
               ))}
             </div>

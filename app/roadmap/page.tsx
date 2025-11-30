@@ -19,7 +19,7 @@ import { LayoutGrid, List } from "lucide-react";
 type ViewMode = "accordion" | "timeline";
 
 export default function RoadmapPage() {
-  const { handleStatusChange, handleBookmarkToggle, handleNotesUpdate } =
+  const { progress, handleStatusChange, handleBookmarkToggle, handleNotesUpdate } =
     useRoadmap();
   const [selectedSubtopic, setSelectedSubtopic] = useState<Subtopic | null>(
     null
@@ -47,6 +47,7 @@ export default function RoadmapPage() {
         filter={filter}
         onFilterChange={setFilter}
         onSubtopicClick={handleOpenDetail}
+        progress={progress}
       />
       <SidebarInset>
         <div className="flex h-screen flex-col overflow-hidden">
@@ -94,6 +95,7 @@ export default function RoadmapPage() {
                 onBookmarkToggle={handleBookmarkToggle}
                 onOpenDetail={handleOpenDetail}
                 filter={filter}
+                progress={progress}
               />
             ) : (
               <Timeline onSubtopicClick={handleOpenDetail} filter={filter} />

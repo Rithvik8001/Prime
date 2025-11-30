@@ -46,6 +46,46 @@ export function SubtopicDetail({
   const bookmarked = progress?.bookmarked || false;
   const [notes, setNotes] = useState(progress?.notes || "");
 
+  // Update notes state when progress changes
+  useEffect(() => {
+    if (progress?.notes !== undefined) {
+      setNotes(progress.notes);
+    }
+  }, [progress?.notes]);
+
+  // Refresh progress state after status changes
+  const handleStatusChangeWithRefresh = (subtopicId: string, newStatus: SubtopicStatus) => {
+    onStatusChange(subtopicId, newStatus);
+    // Update local state immediately
+    const updatedProgress = getProgress();
+    setAllProgress(updatedProgress);
+    setProgress(updatedProgress[subtopicId] || {
+      subtopicId,
+      status: newStatus,
+      bookmarked: progress?.bookmarked || false,
+      notes: progress?.notes || "",
+    });
+  };
+
+  // Refresh progress state after bookmark toggle
+  const handleBookmarkToggleWithRefresh = (subtopicId: string) => {
+    onBookmarkToggle(subtopicId);
+    // Update local state immediately
+    const updatedProgress = getProgress();
+    setAllProgress(updatedProgress);
+    const updatedSubtopicProgress = updatedProgress[subtopicId];
+    if (updatedSubtopicProgress) {
+      setProgress(updatedSubtopicProgress);
+    } else {
+      setProgress({
+        subtopicId,
+        status: progress?.status || "not-started",
+        bookmarked: !progress?.bookmarked,
+        notes: progress?.notes || "",
+      });
+    }
+  };
+
   const isPrerequisiteCompleted = (prereqId: string) => {
     return allProgress[prereqId]?.status === "completed";
   };
@@ -189,7 +229,7 @@ export function SubtopicDetail({
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => onBookmarkToggle(subtopic.id)}
+              onClick={() => handleBookmarkToggleWithRefresh(subtopic.id)}
               className={cn(
                 "shrink-0",
                 bookmarked && "text-yellow-500 hover:text-yellow-600"
@@ -313,7 +353,7 @@ export function SubtopicDetail({
                 checked={status === "completed"}
                 onCheckedChange={(checked) => {
                   if (isBlocked && checked) return; // Prevent checking if blocked
-                  onStatusChange(
+                  handleStatusChangeWithRefresh(
                     subtopic.id,
                     checked ? "completed" : "not-started"
                   );
@@ -343,7 +383,7 @@ export function SubtopicDetail({
             {status === "not-started" && (
               <Button
                 variant="default"
-                onClick={() => onStatusChange(subtopic.id, "in-progress")}
+                onClick={() => handleStatusChangeWithRefresh(subtopic.id, "in-progress")}
                 disabled={isBlocked}
                 className="w-full sm:w-auto"
               >
@@ -353,7 +393,7 @@ export function SubtopicDetail({
             {status === "in-progress" && (
               <Button
                 variant="outline"
-                onClick={() => onStatusChange(subtopic.id, "not-started")}
+                onClick={() => handleStatusChangeWithRefresh(subtopic.id, "not-started")}
                 className="w-full sm:w-auto"
               >
                 Mark as Not Started

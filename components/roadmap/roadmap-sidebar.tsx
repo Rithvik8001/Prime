@@ -3,9 +3,9 @@
 import { Bookmark, ChevronDown, ChevronRight, Lock } from "lucide-react";
 import { useState, useEffect } from "react";
 import { roadmapData } from "@/lib/roadmap/data";
-import { getProgress, getCompletionStats } from "@/lib/roadmap/progress";
+import { getCompletionStats } from "@/lib/roadmap/progress";
 import { cn } from "@/lib/utils";
-import type { Subtopic } from "@/lib/roadmap/types";
+import type { Subtopic, RoadmapProgress } from "@/lib/roadmap/types";
 import {
   Sidebar,
   SidebarContent,
@@ -28,6 +28,7 @@ interface RoadmapSidebarProps {
     filter: "all" | "in-progress" | "completed" | "bookmarked"
   ) => void;
   onSubtopicClick?: (subtopic: Subtopic) => void;
+  progress: RoadmapProgress;
 }
 
 export function RoadmapSidebar({
@@ -36,21 +37,11 @@ export function RoadmapSidebar({
   filter = "all",
   onFilterChange,
   onSubtopicClick,
+  progress,
 }: RoadmapSidebarProps) {
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
-  const [stats, setStats] = useState({
-    total: 0,
-    completed: 0,
-    inProgress: 0,
-    notStarted: 0,
-    percentage: 0,
-  });
 
-  useEffect(() => {
-    const progress = getProgress();
-    const calculatedStats = getCompletionStats(progress);
-    setStats(calculatedStats);
-  }, []);
+  const stats = getCompletionStats(progress);
 
   const toggleTopic = (topicId: string) => {
     const newExpanded = new Set(expandedTopics);
@@ -61,12 +52,6 @@ export function RoadmapSidebar({
     }
     setExpandedTopics(newExpanded);
   };
-
-  const [progress, setProgress] = useState<Record<string, any>>({});
-
-  useEffect(() => {
-    setProgress(getProgress());
-  }, []);
 
   const getSubtopicCount = (topicId: string) => {
     const topic = roadmapData.topics.find((t) => t.id === topicId);
