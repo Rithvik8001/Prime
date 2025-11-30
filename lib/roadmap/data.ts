@@ -2071,25 +2071,812 @@ export const roadmapData: RoadmapData = {
       ],
     },
     {
-      id: "nextjs",
-      title: "Next.js",
-      description: "React framework for production",
+      id: "nextjs-frontend",
+      title: "Next.js Frontend",
+      description: "React framework for production - Frontend features",
       order: 10,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "nextjs-setup-installation",
+          title: "Next.js Setup & Installation",
+          description:
+            "Learn how to create a new Next.js project, understand the project structure, and configure your development environment",
+          order: 1,
+          prerequisites: ["react-fundamentals"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Getting Started",
+              url: "https://nextjs.org/docs/getting-started",
+            },
+            {
+              type: "video",
+              title: "Next.js 14 Full Course",
+              url: "https://www.youtube.com/watch?v=Sklc_fQBmcs",
+            },
+            {
+              type: "link",
+              title: "Next.js Documentation: Installation",
+              url: "https://nextjs.org/docs/app/building-your-application/installing",
+            },
+            {
+              type: "link",
+              title: "Next.js Project Structure",
+              url: "https://nextjs.org/docs/getting-started/project-structure",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nextjs-app-router",
+          title: "App Router & File-based Routing",
+          description:
+            "Understand Next.js App Router, file-based routing system, dynamic routes, route groups, and parallel routes",
+          order: 2,
+          prerequisites: ["nextjs-setup-installation"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: App Router",
+              url: "https://nextjs.org/docs/app",
+            },
+            {
+              type: "doc",
+              title: "Next.js: Routing",
+              url: "https://nextjs.org/docs/app/building-your-application/routing",
+            },
+            {
+              type: "video",
+              title: "Next.js App Router Explained",
+              url: "https://www.youtube.com/watch?v=Yt-t7N5hXKM",
+            },
+            {
+              type: "link",
+              title: "Next.js: Dynamic Routes",
+              url: "https://nextjs.org/docs/app/building-your-application/routing/dynamic-routes",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nextjs-layouts-templates",
+          title: "Layouts & Templates",
+          description:
+            "Learn how to create shared layouts, nested layouts, templates, and understand the difference between layouts and templates",
+          order: 3,
+          prerequisites: ["nextjs-app-router"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Layouts",
+              url: "https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts",
+            },
+            {
+              type: "doc",
+              title: "Next.js: Templates",
+              url: "https://nextjs.org/docs/app/api-reference/file-conventions/template",
+            },
+            {
+              type: "video",
+              title: "Next.js Layouts Tutorial",
+              url: "https://www.youtube.com/watch?v=6fNy0iD3hsk",
+            },
+            {
+              type: "link",
+              title: "Next.js: Nested Layouts",
+              url: "https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nextjs-client-components",
+          title: "Client Components & Hooks",
+          description:
+            "Understand when to use client components, how to add interactivity with hooks, and the difference between server and client components",
+          order: 4,
+          prerequisites: ["nextjs-layouts-templates"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Client Components",
+              url: "https://nextjs.org/docs/app/building-your-application/rendering/client-components",
+            },
+            {
+              type: "doc",
+              title: "Next.js: Server and Client Components",
+              url: "https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns",
+            },
+            {
+              type: "video",
+              title: "Server vs Client Components in Next.js",
+              url: "https://www.youtube.com/watch?v=zjZ2hEf20UI",
+            },
+            {
+              type: "link",
+              title: "Next.js: When to use Client Components",
+              url: "https://nextjs.org/docs/app/building-your-application/rendering/client-components#when-to-use-client-components",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nextjs-image-optimization",
+          title: "Image Optimization",
+          description:
+            "Learn how to use Next.js Image component for automatic image optimization, lazy loading, and responsive images",
+          order: 5,
+          prerequisites: ["nextjs-client-components"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Image Component",
+              url: "https://nextjs.org/docs/app/api-reference/components/image",
+            },
+            {
+              type: "video",
+              title: "Next.js Image Optimization",
+              url: "https://www.youtube.com/watch?v=8aGf0s7l1_8",
+            },
+            {
+              type: "link",
+              title: "Next.js: Image Optimization Guide",
+              url: "https://nextjs.org/docs/app/building-your-application/optimizing/images",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nextjs-font-optimization",
+          title: "Font Optimization",
+          description:
+            "Learn how to optimize fonts using Next.js font optimization features, including Google Fonts and custom fonts",
+          order: 6,
+          prerequisites: ["nextjs-image-optimization"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Font Optimization",
+              url: "https://nextjs.org/docs/app/building-your-application/optimizing/fonts",
+            },
+            {
+              type: "doc",
+              title: "Next.js: next/font",
+              url: "https://nextjs.org/docs/app/api-reference/components/font",
+            },
+            {
+              type: "link",
+              title: "Next.js: Using Google Fonts",
+              url: "https://nextjs.org/docs/app/building-your-application/optimizing/fonts#google-fonts",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nextjs-static-generation",
+          title: "Static Site Generation (SSG)",
+          description:
+            "Understand static site generation, when to use it, and how to generate static pages at build time",
+          order: 7,
+          prerequisites: ["nextjs-font-optimization"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Static Generation",
+              url: "https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic",
+            },
+            {
+              type: "video",
+              title: "Next.js Static Generation Explained",
+              url: "https://www.youtube.com/watch?v=9P8mASSREYM",
+            },
+            {
+              type: "link",
+              title: "Next.js: Static vs Dynamic Rendering",
+              url: "https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nextjs-isr",
+          title: "Incremental Static Regeneration (ISR)",
+          description:
+            "Learn how to use ISR to update static pages after build time without rebuilding the entire site",
+          order: 8,
+          prerequisites: ["nextjs-static-generation"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Incremental Static Regeneration",
+              url: "https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration",
+            },
+            {
+              type: "video",
+              title: "Next.js ISR Tutorial",
+              url: "https://www.youtube.com/watch?v=BGexHR1tuOA",
+            },
+            {
+              type: "link",
+              title: "Next.js: Revalidating Data",
+              url: "https://nextjs.org/docs/app/building-your-application/data-fetching/revalidating",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nextjs-metadata-seo",
+          title: "Metadata & SEO",
+          description:
+            "Learn how to add metadata, Open Graph tags, and optimize your Next.js app for search engines",
+          order: 9,
+          prerequisites: ["nextjs-isr"],
+          resources: [
+            {
+              type: "doc",
+              title: "Next.js: Metadata",
+              url: "https://nextjs.org/docs/app/api-reference/functions/generate-metadata",
+            },
+            {
+              type: "doc",
+              title: "Next.js: SEO",
+              url: "https://nextjs.org/docs/app/building-your-application/optimizing/metadata",
+            },
+            {
+              type: "video",
+              title: "Next.js SEO Tutorial",
+              url: "https://www.youtube.com/watch?v=9P8mASSREYM",
+            },
+            {
+              type: "link",
+              title: "Next.js: Metadata API",
+              url: "https://nextjs.org/docs/app/api-reference/functions/generate-metadata",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "nodejs-fundamentals",
       title: "Node.js Fundamentals",
       description: "JavaScript runtime for server-side development",
       order: 11,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "nodejs-introduction",
+          title: "Node.js Introduction & Setup",
+          description:
+            "Understand what Node.js is, how it works, and how to set up your development environment",
+          order: 1,
+          prerequisites: ["javascript-fundamentals"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Official Documentation",
+              url: "https://nodejs.org/en/docs",
+            },
+            {
+              type: "video",
+              title: "Node.js Crash Course",
+              url: "https://www.youtube.com/watch?v=fBNz5xF-Kx4",
+            },
+            {
+              type: "link",
+              title: "Node.js: Getting Started",
+              url: "https://nodejs.org/en/learn/getting-started/introduction-to-nodejs",
+            },
+            {
+              type: "link",
+              title: "MDN: Node.js Introduction",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nodejs-modules-commonjs",
+          title: "Modules & CommonJS",
+          description:
+            "Learn how Node.js modules work, understand CommonJS require/exports, and module patterns",
+          order: 2,
+          prerequisites: ["nodejs-introduction"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Modules",
+              url: "https://nodejs.org/api/modules.html",
+            },
+            {
+              type: "video",
+              title: "Node.js Modules Explained",
+              url: "https://www.youtube.com/watch?v=xHLd36QoS4k",
+            },
+            {
+              type: "link",
+              title: "Node.js: CommonJS Modules",
+              url: "https://nodejs.org/api/modules.html#modules-commonjs-modules",
+            },
+            {
+              type: "link",
+              title: "Understanding require() and module.exports",
+              url: "https://www.freecodecamp.org/news/require-module-exports-node-js/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nodejs-es-modules",
+          title: "ES Modules (ESM)",
+          description:
+            "Learn how to use ES6 import/export syntax in Node.js, understand the differences between CommonJS and ESM",
+          order: 3,
+          prerequisites: ["nodejs-modules-commonjs"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: ES Modules",
+              url: "https://nodejs.org/api/esm.html",
+            },
+            {
+              type: "video",
+              title: "ES Modules in Node.js",
+              url: "https://www.youtube.com/watch?v=mK54Cdr1X2s",
+            },
+            {
+              type: "link",
+              title: "Node.js: ES Modules vs CommonJS",
+              url: "https://nodejs.org/api/esm.html#esm-commonjs-interoperability",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nodejs-file-system",
+          title: "File System (fs) Module",
+          description:
+            "Learn how to read, write, and manipulate files using Node.js fs module, both synchronously and asynchronously",
+          order: 4,
+          prerequisites: ["nodejs-es-modules"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: File System",
+              url: "https://nodejs.org/api/fs.html",
+            },
+            {
+              type: "video",
+              title: "Node.js File System Tutorial",
+              url: "https://www.youtube.com/watch?v=U57kU311-nE",
+            },
+            {
+              type: "link",
+              title: "Node.js: Reading and Writing Files",
+              url: "https://nodejs.org/api/fs.html#file-system",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nodejs-path-module",
+          title: "Path Module",
+          description:
+            "Learn how to work with file paths, resolve paths across different operating systems, and manipulate path strings",
+          order: 5,
+          prerequisites: ["nodejs-file-system"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Path Module",
+              url: "https://nodejs.org/api/path.html",
+            },
+            {
+              type: "link",
+              title: "Node.js: Working with Paths",
+              url: "https://nodejs.org/api/path.html#path",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nodejs-events-eventemitter",
+          title: "Events & EventEmitter",
+          description:
+            "Understand Node.js event-driven architecture, EventEmitter class, and how to create custom events",
+          order: 6,
+          prerequisites: ["nodejs-path-module"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Events",
+              url: "https://nodejs.org/api/events.html",
+            },
+            {
+              type: "video",
+              title: "Node.js Events Tutorial",
+              url: "https://www.youtube.com/watch?v=l20MBBFZAmA",
+            },
+            {
+              type: "link",
+              title: "Node.js: EventEmitter",
+              url: "https://nodejs.org/api/events.html#class-eventemitter",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nodejs-streams",
+          title: "Streams",
+          description:
+            "Learn about Node.js streams, readable/writable streams, and how to process large data efficiently",
+          order: 7,
+          prerequisites: ["nodejs-events-eventemitter"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Streams",
+              url: "https://nodejs.org/api/stream.html",
+            },
+            {
+              type: "video",
+              title: "Node.js Streams Explained",
+              url: "https://www.youtube.com/watch?v=GlybFFMXXmQ",
+            },
+            {
+              type: "link",
+              title: "Node.js: Understanding Streams",
+              url: "https://nodejs.org/api/stream.html#stream",
+            },
+          ],
+          difficulty: "advanced",
+        },
+        {
+          id: "nodejs-async-patterns",
+          title: "Async Patterns & Promises",
+          description:
+            "Master asynchronous programming in Node.js, understand callbacks, promises, async/await, and error handling",
+          order: 8,
+          prerequisites: ["nodejs-streams"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Async Patterns",
+              url: "https://nodejs.org/en/learn/asynchronous-work",
+            },
+            {
+              type: "video",
+              title: "Node.js Async Patterns",
+              url: "https://www.youtube.com/watch?v=8aGhZQkoFbQ",
+            },
+            {
+              type: "link",
+              title: "Node.js: Promises and Async/Await",
+              url: "https://nodejs.org/en/learn/asynchronous-work/promises-and-async-await",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "nodejs-npm-package-json",
+          title: "NPM & package.json",
+          description:
+            "Learn how to use npm, manage dependencies, understand package.json, and work with npm scripts",
+          order: 9,
+          prerequisites: ["nodejs-async-patterns"],
+          resources: [
+            {
+              type: "doc",
+              title: "NPM Documentation",
+              url: "https://docs.npmjs.com/",
+            },
+            {
+              type: "video",
+              title: "NPM Tutorial for Beginners",
+              url: "https://www.youtube.com/watch?v=jHDhaSSKmB0",
+            },
+            {
+              type: "link",
+              title: "Understanding package.json",
+              url: "https://docs.npmjs.com/cli/v9/configuring-npm/package-json",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "nodejs-environment-variables",
+          title: "Environment Variables",
+          description:
+            "Learn how to use environment variables in Node.js, manage different environments, and use dotenv",
+          order: 10,
+          prerequisites: ["nodejs-npm-package-json"],
+          resources: [
+            {
+              type: "doc",
+              title: "Node.js: Environment Variables",
+              url: "https://nodejs.org/en/learn/command-line/how-to-read-environment-variables-from-nodejs",
+            },
+            {
+              type: "link",
+              title: "Using dotenv in Node.js",
+              url: "https://www.npmjs.com/package/dotenv",
+            },
+            {
+              type: "video",
+              title: "Environment Variables in Node.js",
+              url: "https://www.youtube.com/watch?v=17UVejOw3z0",
+            },
+          ],
+          difficulty: "beginner",
+        },
+      ],
     },
     {
       id: "expressjs",
       title: "Express.js",
       description: "Web application framework for Node.js",
       order: 12,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "expressjs-introduction",
+          title: "Express.js Introduction & Setup",
+          description:
+            "Learn what Express.js is, how to install it, create your first Express server, and understand the basics",
+          order: 1,
+          prerequisites: ["nodejs-environment-variables"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Getting Started",
+              url: "https://expressjs.com/en/starter/installing.html",
+            },
+            {
+              type: "video",
+              title: "Express.js Crash Course",
+              url: "https://www.youtube.com/watch?v=SccSCuHhOw0",
+            },
+            {
+              type: "link",
+              title: "Express.js: Hello World Example",
+              url: "https://expressjs.com/en/starter/hello-world.html",
+            },
+            {
+              type: "link",
+              title: "Express.js Official Documentation",
+              url: "https://expressjs.com/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "expressjs-routing",
+          title: "Routing",
+          description:
+            "Learn how to define routes, handle HTTP methods (GET, POST, PUT, DELETE), and create route handlers",
+          order: 2,
+          prerequisites: ["expressjs-introduction"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Routing",
+              url: "https://expressjs.com/en/guide/routing.html",
+            },
+            {
+              type: "video",
+              title: "Express.js Routing Tutorial",
+              url: "https://www.youtube.com/watch?v=pKd0Rpw7O48",
+            },
+            {
+              type: "link",
+              title: "Express.js: Route Methods",
+              url: "https://expressjs.com/en/guide/routing.html#route-methods",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "expressjs-middleware",
+          title: "Middleware",
+          description:
+            "Understand Express middleware, how to create custom middleware, use built-in middleware, and understand the request-response cycle",
+          order: 3,
+          prerequisites: ["expressjs-routing"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Using Middleware",
+              url: "https://expressjs.com/en/guide/using-middleware.html",
+            },
+            {
+              type: "video",
+              title: "Express.js Middleware Explained",
+              url: "https://www.youtube.com/watch?v=lY6icfhap2o",
+            },
+            {
+              type: "link",
+              title: "Express.js: Writing Middleware",
+              url: "https://expressjs.com/en/guide/writing-middleware.html",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "expressjs-request-response",
+          title: "Request & Response Objects",
+          description:
+            "Learn how to access request data (params, query, body), send responses, set headers, and handle different response types",
+          order: 4,
+          prerequisites: ["expressjs-middleware"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Request Object",
+              url: "https://expressjs.com/en/api.html#req",
+            },
+            {
+              type: "doc",
+              title: "Express.js: Response Object",
+              url: "https://expressjs.com/en/api.html#res",
+            },
+            {
+              type: "video",
+              title: "Express Request & Response Objects",
+              url: "https://www.youtube.com/watch?v=9H6X5oZ3v8M",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "expressjs-error-handling",
+          title: "Error Handling",
+          description:
+            "Learn how to handle errors in Express, create error middleware, and properly manage error responses",
+          order: 5,
+          prerequisites: ["expressjs-request-response"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Error Handling",
+              url: "https://expressjs.com/en/guide/error-handling.html",
+            },
+            {
+              type: "video",
+              title: "Express.js Error Handling",
+              url: "https://www.youtube.com/watch?v=w1o4XIWq3CY",
+            },
+            {
+              type: "link",
+              title: "Express.js: Error Handling Best Practices",
+              url: "https://expressjs.com/en/guide/error-handling.html#error-handling",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "expressjs-static-files",
+          title: "Serving Static Files",
+          description:
+            "Learn how to serve static files (CSS, images, JavaScript) using Express static middleware",
+          order: 6,
+          prerequisites: ["expressjs-error-handling"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Serving Static Files",
+              url: "https://expressjs.com/en/starter/static-files.html",
+            },
+            {
+              type: "link",
+              title: "Express.js: express.static",
+              url: "https://expressjs.com/en/api.html#express.static",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "expressjs-template-engines",
+          title: "Template Engines",
+          description:
+            "Learn how to use template engines like EJS, Pug, or Handlebars to render dynamic HTML",
+          order: 7,
+          prerequisites: ["expressjs-static-files"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Using Template Engines",
+              url: "https://expressjs.com/en/guide/using-template-engines.html",
+            },
+            {
+              type: "video",
+              title: "Express.js with EJS Template Engine",
+              url: "https://www.youtube.com/watch?v=7HqkAHBz2bE",
+            },
+            {
+              type: "link",
+              title: "Express.js: Template Engine Guide",
+              url: "https://expressjs.com/en/guide/using-template-engines.html",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "expressjs-rest-api",
+          title: "Building REST APIs",
+          description:
+            "Learn how to build RESTful APIs with Express, handle CRUD operations, and follow REST conventions",
+          order: 8,
+          prerequisites: ["expressjs-template-engines"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: REST API Guide",
+              url: "https://expressjs.com/en/guide/routing.html",
+            },
+            {
+              type: "video",
+              title: "Build a REST API with Express.js",
+              url: "https://www.youtube.com/watch?v=pKd0Rpw7O48",
+            },
+            {
+              type: "link",
+              title: "REST API Best Practices",
+              url: "https://restfulapi.net/",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "expressjs-body-parsing",
+          title: "Body Parsing & JSON",
+          description:
+            "Learn how to parse request bodies, handle JSON data, form data, and use body-parser middleware",
+          order: 9,
+          prerequisites: ["expressjs-rest-api"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: Body Parsing",
+              url: "https://expressjs.com/en/api.html#express.json",
+            },
+            {
+              type: "link",
+              title: "Express.js: express.json()",
+              url: "https://expressjs.com/en/api.html#express.json",
+            },
+            {
+              type: "video",
+              title: "Express Body Parser Tutorial",
+              url: "https://www.youtube.com/watch?v=WXsD0ZgxjRw",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "expressjs-cors",
+          title: "CORS & Security",
+          description:
+            "Understand Cross-Origin Resource Sharing (CORS), how to configure it in Express, and basic security practices",
+          order: 10,
+          prerequisites: ["expressjs-body-parsing"],
+          resources: [
+            {
+              type: "doc",
+              title: "Express.js: CORS",
+              url: "https://expressjs.com/en/resources/middleware/cors.html",
+            },
+            {
+              type: "video",
+              title: "CORS Explained",
+              url: "https://www.youtube.com/watch?v=4KHiSt0oLJ0",
+            },
+            {
+              type: "link",
+              title: "MDN: CORS",
+              url: "https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "databases",
@@ -2113,31 +2900,38 @@ export const roadmapData: RoadmapData = {
       subtopics: [],
     },
     {
+      id: "nextjs-backend",
+      title: "Next.js Backend",
+      description: "React framework for production - Backend features",
+      order: 16,
+      subtopics: [],
+    },
+    {
       id: "queues",
       title: "Queues",
       description: "Message queues and job processing",
-      order: 16,
+      order: 17,
       subtopics: [],
     },
     {
       id: "security",
       title: "Security",
       description: "Web security best practices",
-      order: 17,
+      order: 18,
       subtopics: [],
     },
     {
       id: "system-design",
       title: "System Design",
       description: "Designing scalable systems",
-      order: 18,
+      order: 19,
       subtopics: [],
     },
     {
       id: "trpc",
       title: "tRPC",
       description: "End-to-end typesafe APIs",
-      order: 19,
+      order: 20,
       subtopics: [],
     },
   ],
