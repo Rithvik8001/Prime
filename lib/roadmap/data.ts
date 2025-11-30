@@ -714,21 +714,753 @@ export const roadmapData: RoadmapData = {
       title: "JavaScript",
       description: "The programming language of the web",
       order: 4,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "js-basics",
+          title: "JavaScript Fundamentals",
+          description:
+            "Learn variables (let, const, var), data types, operators, type coercion, and basic syntax",
+          order: 1,
+          prerequisites: ["html-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: JavaScript First Steps",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps",
+            },
+            {
+              type: "video",
+              title: "JavaScript Crash Course for Beginners",
+              url: "https://www.youtube.com/watch?v=hdI2bqOjy3c",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: JavaScript Basics",
+              url: "https://www.freecodecamp.org/news/learn-javascript-free-js-courses-for-beginners/",
+            },
+            {
+              type: "doc",
+              title: "MDN: JavaScript Data Types",
+              url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-functions-scope",
+          title: "Functions & Scope",
+          description:
+            "Master function declarations, arrow functions, function expressions, scope (global, function, block), and closures",
+          order: 2,
+          prerequisites: ["js-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: Functions",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions",
+            },
+            {
+              type: "video",
+              title: "JavaScript Functions Explained",
+              url: "https://www.youtube.com/watch?v=N8ap4k_1QEQ",
+            },
+            {
+              type: "doc",
+              title: "MDN: Closures",
+              url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: JavaScript Functions",
+              url: "https://www.freecodecamp.org/news/javascript-functions-explained/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-arrays-objects",
+          title: "Arrays & Objects",
+          description:
+            "Work with arrays (methods, iteration) and objects (properties, methods, destructuring) - essential data structures",
+          order: 3,
+          prerequisites: ["js-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: Arrays",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Arrays",
+            },
+            {
+              type: "doc",
+              title: "MDN: Objects",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects",
+            },
+            {
+              type: "video",
+              title: "JavaScript Arrays & Objects Tutorial",
+              url: "https://www.youtube.com/watch?v=o9e0iqB3sWI",
+            },
+            {
+              type: "link",
+              title: "JavaScript.info: Arrays and Methods",
+              url: "https://javascript.info/array",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-control-flow",
+          title: "Control Flow & Loops",
+          description:
+            "Master conditional statements (if/else, switch), loops (for, while, forEach, map, filter), and logical operators",
+          order: 4,
+          prerequisites: ["js-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: Making Decisions in Code",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals",
+            },
+            {
+              type: "doc",
+              title: "MDN: Looping Code",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Looping_code",
+            },
+            {
+              type: "video",
+              title: "JavaScript Control Flow Tutorial",
+              url: "https://www.youtube.com/watch?v=IsG4Xd6LlsM",
+            },
+            {
+              type: "link",
+              title: "JavaScript.info: Loops",
+              url: "https://javascript.info/while-for",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-dom",
+          title: "DOM Manipulation",
+          description:
+            "Select and manipulate HTML elements, modify content, styles, and attributes using JavaScript",
+          order: 5,
+          prerequisites: ["js-functions-scope", "html-semantic"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: DOM Manipulation",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents",
+            },
+            {
+              type: "video",
+              title: "JavaScript DOM Manipulation Tutorial",
+              url: "https://www.youtube.com/watch?v=5fb2aPlgoys",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: DOM Manipulation",
+              url: "https://www.freecodecamp.org/news/what-is-the-dom-document-object-model-explained-in-plain-english/",
+            },
+            {
+              type: "doc",
+              title: "MDN: Document Object Model",
+              url: "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-events",
+          title: "Events & Event Handling",
+          description:
+            "Handle user interactions with event listeners, event objects, event delegation, and common event types",
+          order: 6,
+          prerequisites: ["js-dom"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: Events",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events",
+            },
+            {
+              type: "video",
+              title: "JavaScript Events Tutorial",
+              url: "https://www.youtube.com/watch?v=XF1_MlZ5l6M",
+            },
+            {
+              type: "link",
+              title: "JavaScript.info: Events",
+              url: "https://javascript.info/events",
+            },
+            {
+              type: "doc",
+              title: "MDN: Event Reference",
+              url: "https://developer.mozilla.org/en-US/docs/Web/Events",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "js-async",
+          title: "Asynchronous JavaScript",
+          description:
+            "Understand callbacks, Promises, async/await, fetch API, and handling asynchronous operations",
+          order: 7,
+          prerequisites: ["js-functions-scope"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: Asynchronous JavaScript",
+              url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous",
+            },
+            {
+              type: "video",
+              title: "JavaScript Async/Await Tutorial",
+              url: "https://www.youtube.com/watch?v=vn3tm0quoqE",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: JavaScript Promises",
+              url: "https://www.freecodecamp.org/news/javascript-promises-explained/",
+            },
+            {
+              type: "doc",
+              title: "MDN: Fetch API",
+              url: "https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "js-es6",
+          title: "ES6+ Modern JavaScript",
+          description:
+            "Learn modern JavaScript features: template literals, destructuring, spread operator, modules (import/export), and more",
+          order: 8,
+          prerequisites: ["js-arrays-objects"],
+          resources: [
+            {
+              type: "doc",
+              title: "MDN: ES6 In Depth",
+              url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_2015_support_in_Mozilla",
+            },
+            {
+              type: "video",
+              title: "ES6+ JavaScript Features",
+              url: "https://www.youtube.com/watch?v=NCwa_xi0Uuc",
+            },
+            {
+              type: "link",
+              title: "JavaScript.info: Modern JavaScript",
+              url: "https://javascript.info/",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: ES6 Features",
+              url: "https://www.freecodecamp.org/news/es6-features/",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "typescript",
       title: "TypeScript",
       description: "Typed superset of JavaScript",
       order: 5,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "ts-basics",
+          title: "TypeScript Basics & Setup",
+          description:
+            "Learn what TypeScript is, why use it, setting up TypeScript, type annotations, and basic types (string, number, boolean)",
+          order: 1,
+          prerequisites: ["js-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Basic Types",
+              url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Crash Course",
+              url: "https://www.youtube.com/watch?v=ahCwqrYpIuM",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Tutorial",
+              url: "https://www.freecodecamp.org/news/learn-typescript-beginners-guide/",
+            },
+            {
+              type: "doc",
+              title: "TypeScript: Getting Started",
+              url: "https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "ts-type-system",
+          title: "Type System Fundamentals",
+          description:
+            "Master TypeScript's type system: unions, intersections, type aliases, literal types, and type inference",
+          order: 2,
+          prerequisites: ["ts-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Unions and Intersections",
+              url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types",
+            },
+            {
+              type: "video",
+              title: "TypeScript Type System Explained",
+              url: "https://www.youtube.com/watch?v=7qjb2-pa1SE",
+            },
+            {
+              type: "link",
+              title: "TypeScript Deep Dive: Types",
+              url: "https://basarat.gitbook.io/typescript/type-system",
+            },
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Type Aliases",
+              url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "ts-functions",
+          title: "Functions & Function Types",
+          description:
+            "Type functions, function parameters, return types, optional parameters, default parameters, and function overloads",
+          order: 3,
+          prerequisites: ["ts-basics", "js-functions-scope"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Functions",
+              url: "https://www.typescriptlang.org/docs/handbook/2/functions.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Functions Tutorial",
+              url: "https://www.youtube.com/watch?v=nViEqpgwxHE",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Functions",
+              url: "https://www.freecodecamp.org/news/typescript-functions/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "ts-interfaces-types",
+          title: "Interfaces & Type Definitions",
+          description:
+            "Define object shapes with interfaces and types, optional properties, readonly, extending interfaces, and type vs interface",
+          order: 4,
+          prerequisites: ["ts-type-system", "js-arrays-objects"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Interfaces",
+              url: "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Interfaces Tutorial",
+              url: "https://www.youtube.com/watch?v=riDVvXZ_Kb4",
+            },
+            {
+              type: "link",
+              title: "TypeScript: Interface vs Type",
+              url: "https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#interfaces-vs-type-aliases",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Interfaces",
+              url: "https://www.freecodecamp.org/news/typescript-interfaces/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "ts-generics",
+          title: "Generics",
+          description:
+            "Create reusable, type-safe code with generics, generic functions, generic interfaces, and constraints",
+          order: 5,
+          prerequisites: ["ts-interfaces-types"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Generics",
+              url: "https://www.typescriptlang.org/docs/handbook/2/generics.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Generics Tutorial",
+              url: "https://www.youtube.com/watch?v=nViEqpgwxHE",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Generics",
+              url: "https://www.freecodecamp.org/news/typescript-generics-explained/",
+            },
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Generic Constraints",
+              url: "https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-constraints",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "ts-narrowing",
+          title: "Type Narrowing & Type Guards",
+          description:
+            "Narrow types with type guards, typeof, instanceof, discriminated unions, and assertion functions",
+          order: 6,
+          prerequisites: ["ts-type-system"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Narrowing",
+              url: "https://www.typescriptlang.org/docs/handbook/2/narrowing.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Type Narrowing",
+              url: "https://www.youtube.com/watch?v=46a6X-fsJ78",
+            },
+            {
+              type: "link",
+              title: "TypeScript Deep Dive: Type Guards",
+              url: "https://basarat.gitbook.io/typescript/type-system/typeguard",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "ts-utility-types",
+          title: "Utility Types",
+          description:
+            "Use built-in utility types: Partial, Required, Pick, Omit, Record, and create custom utility types",
+          order: 7,
+          prerequisites: ["ts-generics"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: Utility Types",
+              url: "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+            },
+            {
+              type: "video",
+              title: "TypeScript Utility Types Explained",
+              url: "https://www.youtube.com/watch?v=6M6samPEMPY",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Utility Types",
+              url: "https://www.freecodecamp.org/news/typescript-utility-types/",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "ts-config",
+          title: "TypeScript Configuration",
+          description:
+            "Configure TypeScript with tsconfig.json, compiler options, module resolution, and strict mode",
+          order: 8,
+          prerequisites: ["ts-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "TypeScript Handbook: tsconfig.json",
+              url: "https://www.typescriptlang.org/docs/handbook/tsconfig-json.html",
+            },
+            {
+              type: "link",
+              title: "TypeScript Compiler Options",
+              url: "https://www.typescriptlang.org/tsconfig",
+            },
+            {
+              type: "video",
+              title: "TypeScript Configuration Explained",
+              url: "https://www.youtube.com/watch?v=zQnBQ4tB3ZA",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: TypeScript Config",
+              url: "https://www.freecodecamp.org/news/typescript-config/",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "react",
       title: "React",
       description: "A JavaScript library for building user interfaces",
       order: 6,
-      subtopics: [],
+      subtopics: [
+        {
+          id: "react-basics",
+          title: "React Fundamentals",
+          description:
+            "Learn React basics: JSX, components (functional), props, rendering, and the component tree",
+          order: 1,
+          prerequisites: ["js-es6", "js-dom"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Getting Started",
+              url: "https://react.dev/learn",
+            },
+            {
+              type: "video",
+              title: "React Tutorial for Beginners",
+              url: "https://www.youtube.com/watch?v=SqcY0GlETPk",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Tutorial",
+              url: "https://www.freecodecamp.org/news/react-beginner-handbook/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: Your First Component",
+              url: "https://react.dev/learn/your-first-component",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "react-state",
+          title: "State & useState Hook",
+          description:
+            "Manage component state with useState hook, state updates, and understanding React's rendering cycle",
+          order: 2,
+          prerequisites: ["react-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: State",
+              url: "https://react.dev/learn/state-a-components-memory",
+            },
+            {
+              type: "video",
+              title: "React useState Hook Tutorial",
+              url: "https://www.youtube.com/watch?v=O6P86uwfdR0",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React useState Hook",
+              url: "https://www.freecodecamp.org/news/react-usestate-hook/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: useState API",
+              url: "https://react.dev/reference/react/useState",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "react-effects",
+          title: "useEffect Hook",
+          description:
+            "Handle side effects, lifecycle events, data fetching, and cleanup with useEffect hook",
+          order: 3,
+          prerequisites: ["react-state", "js-async"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: useEffect",
+              url: "https://react.dev/learn/synchronizing-with-effects",
+            },
+            {
+              type: "video",
+              title: "React useEffect Hook Explained",
+              url: "https://www.youtube.com/watch?v=0ZJgIjIuY7U",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React useEffect Hook",
+              url: "https://www.freecodecamp.org/news/react-useeffect-hook/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: useEffect API",
+              url: "https://react.dev/reference/react/useEffect",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "react-conditional-rendering",
+          title: "Conditional Rendering & Lists",
+          description:
+            "Render components conditionally, map over arrays to render lists, and use keys properly",
+          order: 4,
+          prerequisites: ["react-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Conditional Rendering",
+              url: "https://react.dev/learn/conditional-rendering",
+            },
+            {
+              type: "doc",
+              title: "React Docs: Rendering Lists",
+              url: "https://react.dev/learn/rendering-lists",
+            },
+            {
+              type: "video",
+              title: "React Conditional Rendering Tutorial",
+              url: "https://www.youtube.com/watch?v=7o5FPaVA9m0",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Lists and Keys",
+              url: "https://www.freecodecamp.org/news/react-list-tutorial/",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "react-events",
+          title: "Event Handling",
+          description:
+            "Handle user events in React, event objects, synthetic events, and form handling",
+          order: 5,
+          prerequisites: ["react-state", "js-events"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Responding to Events",
+              url: "https://react.dev/learn/responding-to-events",
+            },
+            {
+              type: "video",
+              title: "React Event Handling Tutorial",
+              url: "https://www.youtube.com/watch?v=rg1Y8qP_F4Y",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Events",
+              url: "https://www.freecodecamp.org/news/react-event-handlers/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: Forms",
+              url: "https://react.dev/reference/react-dom/components/form",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "react-props-children",
+          title: "Props & Children",
+          description:
+            "Pass data with props, prop types, default props, children prop, and prop drilling",
+          order: 6,
+          prerequisites: ["react-basics"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Passing Props",
+              url: "https://react.dev/learn/passing-props-to-a-component",
+            },
+            {
+              type: "video",
+              title: "React Props Tutorial",
+              url: "https://www.youtube.com/watch?v=IYvD9oBCuJI",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Props",
+              url: "https://www.freecodecamp.org/news/react-props/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: Children",
+              url: "https://react.dev/learn/passing-props-to-a-component#passing-jsx-as-children",
+            },
+          ],
+          difficulty: "beginner",
+        },
+        {
+          id: "react-hooks-advanced",
+          title: "Advanced Hooks",
+          description:
+            "Master useRef, useMemo, useCallback, useContext, and custom hooks for performance and code reuse",
+          order: 7,
+          prerequisites: ["react-effects"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Hooks API Reference",
+              url: "https://react.dev/reference/react",
+            },
+            {
+              type: "video",
+              title: "React Hooks Explained",
+              url: "https://www.youtube.com/watch?v=TNhaISOUy6Q",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Hooks",
+              url: "https://www.freecodecamp.org/news/react-hooks/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: Custom Hooks",
+              url: "https://react.dev/learn/reusing-logic-with-custom-hooks",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+        {
+          id: "react-performance",
+          title: "Performance Optimization",
+          description:
+            "Optimize React apps with memo, useMemo, useCallback, code splitting, and React.memo",
+          order: 8,
+          prerequisites: ["react-hooks-advanced"],
+          resources: [
+            {
+              type: "doc",
+              title: "React Docs: Performance",
+              url: "https://react.dev/learn/render-and-commit",
+            },
+            {
+              type: "video",
+              title: "React Performance Optimization",
+              url: "https://www.youtube.com/watch?v=4FhJkX8f1F4",
+            },
+            {
+              type: "link",
+              title: "freeCodeCamp: React Performance",
+              url: "https://www.freecodecamp.org/news/react-performance-optimization/",
+            },
+            {
+              type: "doc",
+              title: "React Docs: memo API",
+              url: "https://react.dev/reference/react/memo",
+            },
+          ],
+          difficulty: "intermediate",
+        },
+      ],
     },
     {
       id: "state-management",
