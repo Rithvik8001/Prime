@@ -73,12 +73,13 @@ export function SubtopicCard({
           <Checkbox
             checked={status === "completed"}
             onCheckedChange={(checked) => {
+              if (isBlocked && checked) return; // Prevent checking if blocked
               onStatusChange(
                 subtopic.id,
                 checked ? "completed" : "not-started"
               );
             }}
-            disabled={isBlocked}
+            disabled={isBlocked && status !== "completed"}
             aria-label={`Mark ${subtopic.title} as ${
               status === "completed" ? "completed" : "not started"
             }`}
@@ -140,12 +141,13 @@ export function SubtopicCard({
             >
               View Details
             </Button>
-            {status === "not-started" && !isBlocked && (
+            {status === "not-started" && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => onStatusChange(subtopic.id, "in-progress")}
                 className="text-xs"
+                disabled={isBlocked}
               >
                 Start Learning
               </Button>

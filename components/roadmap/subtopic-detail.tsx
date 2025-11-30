@@ -237,34 +237,46 @@ export function SubtopicDetail({
                   );
                 })}
               </div>
-              {isBlocked && (
-                <p className="text-destructive text-sm mt-2">
-                  Complete all prerequisites to unlock this subtopic.
-                </p>
-              )}
             </div>
           )}
 
-          {/* Resources - Categorized */}
-          {subtopic.resources.length > 0 && (
-            <div className="space-y-4">
-              <h3 className="font-medium text-sm">Resources</h3>
-              <ResourceSection
-                title="Official Documentation"
-                resources={categorizedResources.docs}
-                icon={BookOpen}
-              />
-              <ResourceSection
-                title="Videos"
-                resources={categorizedResources.videos}
-                icon={Play}
-              />
-              <ResourceSection
-                title="Articles & Tutorials"
-                resources={categorizedResources.articles}
-                icon={FileText}
-              />
+          {/* Resources - Categorized (Only show if prerequisites completed) */}
+          {isBlocked ? (
+            <div className="bg-muted/50 rounded-lg p-4 border border-destructive/20">
+              <div className="flex items-start gap-3">
+                <Lock className="size-5 text-destructive shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-medium text-sm mb-1 text-destructive">
+                    Resources Locked
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Complete all prerequisites to unlock learning resources for this subtopic. 
+                    You can still bookmark this subtopic and add notes while you work on the prerequisites.
+                  </p>
+                </div>
+              </div>
             </div>
+          ) : (
+            subtopic.resources.length > 0 && (
+              <div className="space-y-4">
+                <h3 className="font-medium text-sm">Resources</h3>
+                <ResourceSection
+                  title="Official Documentation"
+                  resources={categorizedResources.docs}
+                  icon={BookOpen}
+                />
+                <ResourceSection
+                  title="Videos"
+                  resources={categorizedResources.videos}
+                  icon={Play}
+                />
+                <ResourceSection
+                  title="Articles & Tutorials"
+                  resources={categorizedResources.articles}
+                  icon={FileText}
+                />
+              </div>
+            )
           )}
 
           {/* Notes */}
@@ -286,27 +298,39 @@ export function SubtopicDetail({
                 id="completed-checkbox"
                 checked={status === "completed"}
                 onCheckedChange={(checked) => {
+                  if (isBlocked && checked) return; // Prevent checking if blocked
                   onStatusChange(
                     subtopic.id,
                     checked ? "completed" : "not-started"
                   );
                 }}
-                disabled={isBlocked}
+                disabled={isBlocked && status !== "completed"}
               />
               <label
                 htmlFor="completed-checkbox"
-                className="text-sm font-medium cursor-pointer"
+                className={cn(
+                  "text-sm font-medium",
+                  isBlocked && status !== "completed"
+                    ? "cursor-not-allowed text-muted-foreground"
+                    : "cursor-pointer"
+                )}
               >
                 Mark as completed
+                {isBlocked && status !== "completed" && (
+                  <span className="text-xs text-destructive ml-1">
+                    (Complete prerequisites first)
+                  </span>
+                )}
               </label>
             </div>
 
             <div className="flex-1" />
 
-            {status === "not-started" && !isBlocked && (
+            {status === "not-started" && (
               <Button
                 variant="default"
                 onClick={() => onStatusChange(subtopic.id, "in-progress")}
+                disabled={isBlocked}
               >
                 Start Learning
               </Button>
