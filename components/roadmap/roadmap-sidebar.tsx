@@ -1,9 +1,11 @@
 "use client";
 
 import { Bookmark, ChevronDown, ChevronRight, Lock } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { roadmapData } from "@/lib/roadmap/data";
-import { getCompletionStats } from "@/lib/roadmap/progress";
+import { getCompletionStats, getBookmarkCount } from "@/lib/roadmap/progress";
 import { cn } from "@/lib/utils";
 import type { Subtopic, RoadmapProgress } from "@/lib/roadmap/types";
 import {
@@ -39,9 +41,11 @@ export function RoadmapSidebar({
   onSubtopicClick,
   progress,
 }: RoadmapSidebarProps) {
+  const pathname = usePathname();
   const [expandedTopics, setExpandedTopics] = useState<Set<string>>(new Set());
 
   const stats = getCompletionStats(progress);
+  const bookmarkCount = getBookmarkCount(progress);
 
   const toggleTopic = (topicId: string) => {
     const newExpanded = new Set(expandedTopics);
@@ -160,6 +164,10 @@ export function RoadmapSidebar({
             <span className="text-sidebar-foreground/70">Total</span>
             <span className="font-medium">{stats.total}</span>
           </div>
+          <div className="flex justify-between">
+            <span className="text-sidebar-foreground/70">Bookmarked</span>
+            <span className="font-medium">{bookmarkCount}</span>
+          </div>
           <div className="pt-2">
             <div className="bg-sidebar-accent h-2 w-full rounded-full overflow-hidden">
               <div
@@ -174,36 +182,47 @@ export function RoadmapSidebar({
         </div>
       </SidebarHeader>
 
-      {onFilterChange && (
-        <>
-          <SidebarSeparator className="mx-0" />
-          <SidebarGroup>
-            <SidebarGroupLabel>Filters</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {(
-                  [
-                    { id: "all", label: "All" },
-                    { id: "in-progress", label: "In Progress" },
-                    { id: "completed", label: "Completed" },
-                    { id: "bookmarked", label: "Bookmarked" },
-                  ] as const
-                ).map((f) => (
-                  <SidebarMenuItem key={f.id}>
-                    <SidebarMenuButton
-                      isActive={filter === f.id}
-                      onClick={() => onFilterChange(f.id)}
-                    >
-                      {f.id === "bookmarked" && <Bookmark className="size-4" />}
-                      <span>{f.label}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </>
-      )}
+      <SidebarSeparator className="mx-0" />
+      <SidebarGroup>
+        <SidebarGroupLabel>
+          {onFilterChange ? "Filters" : "Navigation"}
+        </SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {onFilterChange &&
+              (
+                [
+                  { id: "all", label: "All" },
+                  { id: "in-progress", label: "In Progress" },
+                  { id: "completed", label: "Completed" },
+                ] as const
+              ).map((f) => (
+                <SidebarMenuItem key={f.id}>
+                  <SidebarMenuButton
+                    isActive={filter === f.id}
+                    onClick={() => onFilterChange(f.id)}
+                  >
+                    <span>{f.label}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                isActive={pathname === "/roadmap/bookmarks"}
+              >
+                <Link href="/roadmap/bookmarks">
+                  <Bookmark className="size-4" />
+                  <span>Bookmarked</span>
+                  {bookmarkCount > 0 && (
+                    <SidebarMenuBadge>{bookmarkCount}</SidebarMenuBadge>
+                  )}
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
 
       <SidebarSeparator className="mx-0" />
 

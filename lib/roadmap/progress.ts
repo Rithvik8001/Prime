@@ -112,3 +112,15 @@ export function getCompletionStats(progress: RoadmapProgress): {
     percentage: total > 0 ? Math.round((completed / total) * 100) : 0,
   };
 }
+
+export function getBookmarkCount(progress: RoadmapProgress): number {
+  let count = 0;
+  roadmapData.topics.forEach((topic) => {
+    topic.subtopics.forEach((subtopic) => {
+      if (progress[subtopic.id]?.bookmarked) {
+        count++;
+      }
+    });
+  });
+  return count;
+}
