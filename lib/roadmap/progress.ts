@@ -93,7 +93,7 @@ export function getCompletionStats(progress: RoadmapProgress): {
       total++;
       const subtopicProgress = progress[subtopic.id];
       const status = subtopicProgress?.status || "not-started";
-      
+
       if (status === "completed") {
         completed++;
       } else if (status === "in-progress") {
