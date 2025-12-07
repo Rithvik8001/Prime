@@ -7,7 +7,10 @@ export default function Navbar() {
   return (
     <>
       <div className="flex items-center justify-between w-full">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+        <Link
+          href="/"
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+        >
           <Logo size={45} />
           <h1 className="text-2xl font-medium tracking-tighter">Prime</h1>
         </Link>
